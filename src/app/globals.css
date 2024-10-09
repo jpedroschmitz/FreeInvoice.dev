@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+
+  html {
+    box-sizing: border-box;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply antialiased font-sans;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+    word-wrap: break-word;
+    height: 100vh;
+  }
+
+  ::-webkit-scrollbar {
+    @apply h-3 w-3;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full border-x-2 border-y-2 border-solid border-transparent bg-gray-500 bg-clip-padding;
+  }
+}
