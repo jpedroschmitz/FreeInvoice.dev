@@ -1,6 +1,8 @@
 import { LightBulbIcon } from '@heroicons/react/16/solid';
 import { HomeIcon, QuestionMarkCircleIcon, SparklesIcon } from '@heroicons/react/20/solid';
 
+import { InvoiceForm } from '@/app/invoice-form';
+import { Heading } from '@/lib/ui/heading';
 import { Navbar, NavbarItem, NavbarSection, NavbarSpacer } from '@/lib/ui/navbar';
 import { Sidebar, SidebarBody, SidebarHeader, SidebarItem, SidebarLabel, SidebarSection } from '@/lib/ui/sidebar';
 import { SidebarLayout } from '@/lib/ui/sidebar-layout';
@@ -22,7 +24,7 @@ export default function Homepage() {
       sidebar={
         <Sidebar>
           <SidebarHeader>
-            <SidebarLabel>Invoicy</SidebarLabel>
+            <SidebarLabel className="hidden lg:block">Free Invoice</SidebarLabel>
           </SidebarHeader>
           <SidebarBody>
             <SidebarSection>
@@ -50,7 +52,11 @@ export default function Homepage() {
         </Sidebar>
       }
     >
-      Hello World!
+      <Heading>Welcome to Free Invoice</Heading>
+
+      <div className="mt-10">
+        <InvoiceForm />
+      </div>
     </SidebarLayout>
   );
 }
