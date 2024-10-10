@@ -26,7 +26,11 @@
     ]
   },
   "dependencies": {
+    "@headlessui/react": "2.1.9",
+    "@heroicons/react": "2.1.5",
     "autoprefixer": "10.4.20",
+    "clsx": "2.1.1",
+    "framer-motion": "11.11.7",
     "next": "14.2.14",
     "postcss": "8.4.47",
     "react": "18.3.1",
