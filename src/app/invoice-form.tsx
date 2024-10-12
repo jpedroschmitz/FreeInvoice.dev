@@ -2,10 +2,12 @@
 
 import { PlusIcon, TrashIcon } from '@heroicons/react/16/solid';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useFormStatus } from 'react-dom';
+import { pdf } from '@react-pdf/renderer';
+import { useState } from 'react';
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { PDFDocument } from '@/app/PDFDocument';
 import { Button } from '@/lib/ui/button';
 import { ErrorMessage, Field, FieldGroup, Fieldset, Label, Legend } from '@/lib/ui/fieldset';
 import { Input } from '@/lib/ui/input';
@@ -42,7 +44,7 @@ const formSchema = z.object({
 export type InvoiceFormValues = z.infer<typeof formSchema>;
 
 export function InvoiceForm() {
-  const { pending } = useFormStatus();
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const {
     register,
@@ -61,13 +63,26 @@ export function InvoiceForm() {
     name: 'services',
   });
 
-  const onSubmit: SubmitHandler<InvoiceFormValues> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<InvoiceFormValues> = async (data) => {
+    setIsGenerating(true);
+    try {
+      const blob = await pdf(<PDFDocument {...data} />).toBlob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'invoice.pdf';
+      link.click();
+      URL.revokeObjectURL(url); // This frees up memory by releasing the reference to the blob
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} method="POST" className="space-y-10">
-      <Fieldset disabled={pending}>
+      <Fieldset>
         <Legend>Your Company Details</Legend>
         <Text>Provide your company&#39;s official name and address as they should appear on the invoice.</Text>
         <FieldGroup className="grid grid-cols-2 gap-6 space-y-0">
@@ -187,17 +202,19 @@ export function InvoiceForm() {
                 <ErrorMessage>{errors.services[index]?.amount?.message}</ErrorMessage>
               )}
             </Field>
-            <Button
-              type="button"
-              color="red"
-              disabled={index === 0}
-              onClick={() => {
-                if (index !== 0) remove(index);
-              }}
-              className="shrink-0 self-center"
-            >
-              <TrashIcon />
-            </Button>
+            <div className="w-[34px] h-full flex items-stretch flex-1 shrink-0">
+              <Button
+                type="button"
+                color="red"
+                disabled={index === 0}
+                onClick={() => {
+                  if (index !== 0) remove(index);
+                }}
+                className="mt-9"
+              >
+                <TrashIcon />
+              </Button>
+            </div>
           </FieldGroup>
         ))}
         <Button
@@ -235,8 +252,8 @@ export function InvoiceForm() {
         </FieldGroup>
       </Fieldset>
 
-      <Button type="submit" className="mt-10" disabled={pending}>
-        {pending ? 'Generating...' : 'Download PDF'}
+      <Button type="submit" className="mt-10" disabled={isGenerating}>
+        {isGenerating ? 'Generating PDF...' : 'Download PDF'}
       </Button>
     </form>
   );

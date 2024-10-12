@@ -1,8 +1,12 @@
 'use client';
 
 import { Table, TD, TH, TR } from '@ag-media/react-pdf-table';
-import { Document, Font, Page, Text, View } from '@react-pdf/renderer';
+import { Document, Font, Link, Page, Text, View } from '@react-pdf/renderer';
+import currency from 'currency.js';
+import { format } from 'date-fns';
 import { createTw } from 'react-pdf-tailwind';
+
+import { InvoiceFormValues } from '@/app/invoice-form';
 
 Font.register({
   family: `DM Sans`,
@@ -34,7 +38,41 @@ const tw = createTw({
   },
 });
 
-export function PDFDocument() {
+const formatCurrency = (amount: number, currency: string) => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: currency,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(amount);
+};
+
+export function PDFDocument({
+  bill_to,
+  bill_to_phone,
+  bill_to_email,
+  bill_to_address,
+  company_address,
+  company_email,
+  company_name,
+  company_phone,
+  currency: invoiceCurrency = 'USD',
+  due_date,
+  notes,
+  services = [],
+}: InvoiceFormValues) {
+  const currentDate = new Date();
+  const randomNumber = Math.floor(Math.random() * 10000);
+
+  const total = services
+    .map((service) => currency(service.amount).multiply(service.quantity))
+    .reduce((acc, amount) => acc.add(amount), currency(0));
+
+  const totalFormatted = formatCurrency(total.value, invoiceCurrency);
+
+  const invoiceDate = format(currentDate, 'yyyy-MM-dd');
+  const dueDate = format(new Date(due_date), 'yyyy-MM-dd');
+
   return (
     <Document
       title="Invoice"
@@ -42,24 +80,24 @@ export function PDFDocument() {
       producer="freeinvoice.dev"
       author="Invoice"
       subject="Invoice"
-      creationDate={new Date()}
+      creationDate={currentDate}
     >
       <Page size="A4" style={tw('pt-[36px] px-[36px] font-sans text-primary antialiased')}>
         <View style={tw('flex flex-row justify-between')}>
           <View>
             <Text style={tw('text-[24px] font-bold leading-none')}>Invoice</Text>
-            <Text style={tw('text-[10px] mt-6 leading-none font-medium tracking-wide')}>#27346733-022</Text>
+            <Text style={tw('text-[10px] mt-6 leading-none font-medium tracking-wide')}>#{randomNumber}</Text>
           </View>
         </View>
 
         <View style={tw('mt-12')}>
           <View style={tw('flex flex-row items-center')}>
             <Text style={tw('text-[10px] mr-[15px] leading-none')}>Invoice Date</Text>
-            <Text style={tw('text-[10px] font-bold leading-none')}>6 March, 2023</Text>
+            <Text style={tw('text-[10px] font-bold leading-none')}>{invoiceDate}</Text>
           </View>
           <View style={tw('flex flex-row items-center mt-2')}>
             <Text style={tw('text-[10px] mr-[30px] leading-none')}>Due Date</Text>
-            <Text style={tw('text-[10px] font-bold leading-none')}>7 March, 2023</Text>
+            <Text style={tw('text-[10px] font-bold leading-none')}>{dueDate}</Text>
           </View>
         </View>
 
@@ -69,19 +107,27 @@ export function PDFDocument() {
           <View style={tw('w-full')}>
             <Text style={tw('text-[10px] font-bold leading-none')}>Billed To</Text>
             <View style={tw('mt-5')}>
-              <Text style={tw('text-[10px] font-bold leading-none')}>João Pedro</Text>
-              <Text style={tw('text-[10px] font-bold leading-none mt-2')}>joao@mobg.com.br</Text>
-              <Text style={tw('text-[10px] font-medium leading-none mt-2')}>9029 Salt Lake, Mandalor</Text>
-              <Text style={tw('text-[10px] font-medium leading-none mt-2')}>(+254) 724-453-233</Text>
+              <Text style={tw('text-[10px] font-bold leading-none')}>{bill_to}</Text>
+              {bill_to_email ? (
+                <Text style={tw('text-[10px] font-bold leading-none mt-2')}>{bill_to_email}</Text>
+              ) : null}
+              <Text style={tw('text-[10px] font-medium leading-none mt-2')}>{bill_to_address}</Text>
+              {bill_to_phone ? (
+                <Text style={tw('text-[10px] font-medium leading-none mt-2')}>{bill_to_phone}</Text>
+              ) : null}
             </View>
           </View>
           <View style={tw('w-full')}>
             <Text style={tw('text-[10px] font-bold leading-none')}>From</Text>
             <View style={tw('mt-5')}>
-              <Text style={tw('text-[10px] font-bold leading-none')}>João Pedro</Text>
-              <Text style={tw('text-[10px] font-bold leading-none mt-2')}>joao@mobg.com.br</Text>
-              <Text style={tw('text-[10px] font-medium leading-none mt-2')}>9029 Salt Lake, Mandalor</Text>
-              <Text style={tw('text-[10px] font-medium leading-none mt-2')}>(+254) 724-453-233</Text>
+              <Text style={tw('text-[10px] font-bold leading-none')}>{company_name}</Text>
+              {company_email ? (
+                <Text style={tw('text-[10px] font-bold leading-none mt-2')}>{company_email}</Text>
+              ) : null}
+              <Text style={tw('text-[10px] font-medium leading-none mt-2')}>{company_address}</Text>
+              {company_phone ? (
+                <Text style={tw('text-[10px] font-medium leading-none mt-2')}>{company_phone}</Text>
+              ) : null}
             </View>
           </View>
         </View>
@@ -102,19 +148,19 @@ export function PDFDocument() {
                 Amount
               </TD>
             </TH>
-            {[1, 2, 3].map((item) => (
-              <TR key={item} style={tw('border-b border-[#E7EBF4]')}>
+            {services.map((item) => (
+              <TR key={item.description} style={tw('border-b border-[#E7EBF4]')}>
                 <TD style={tw('text-[10px] items-center leading-none p-2')} weighting={0.5}>
-                  5 pager static website design
+                  {item.description}
                 </TD>
                 <TD style={tw('text-[10px] font-bold items-center justify-center leading-none p-2')} weighting={0.1}>
-                  5
+                  {item.quantity}
                 </TD>
                 <TD style={tw('text-[10px] font-bold items-center leading-none justify-end p-2 ')} weighting={0.2}>
-                  $ 900
+                  {formatCurrency(currency(item.amount).value, invoiceCurrency)}
                 </TD>
                 <TD style={tw('text-[10px] font-bold items-center leading-none justify-end pr-2 py-2')} weighting={0.2}>
-                  $ 45,000
+                  {formatCurrency(currency(item.amount).multiply(item.quantity).value, invoiceCurrency)}
                 </TD>
               </TR>
             ))}
@@ -127,20 +173,26 @@ export function PDFDocument() {
                 weighting={0.25}
               >
                 <Text>Total</Text>
-                <Text>$ 135,000</Text>
+                <Text>{totalFormatted}</Text>
               </TD>
             </TR>
           </Table>
         </View>
 
-        <View style={tw('mt-11')}>
-          <Text style={tw('text-[10px] font-bold leading-none')}>Additional Information</Text>
-          <Text style={tw('text-[10px] leading-[20px] font-medium mt-5')}></Text>
-        </View>
+        {notes ? (
+          <View style={tw('mt-11')}>
+            <Text style={tw('text-[10px] font-bold leading-none')}>Additional Information</Text>
+            <Text style={tw('text-[10px] leading-[20px] font-medium mt-5')}>{notes}</Text>
+          </View>
+        ) : null}
 
         <View fixed style={tw('mt-auto py-4 border-t border-[#E7EBF4] flex flex-row items-center justify-between')}>
-          <Text style={tw('text-[8px] font-medium')}>#27346733-022 · $93,100 due 7 March, 2023</Text>
-          <Text style={tw('text-[8px] font-medium')}>freeinvoice.dev</Text>
+          <Text style={tw('text-[8px] font-medium')}>
+            #{randomNumber} · {totalFormatted} due {dueDate}
+          </Text>
+          <Link style={tw('text-[8px] font-medium text-primary')} href="https://freeinvoice.dev">
+            freeinvoice.dev
+          </Link>
         </View>
       </Page>
     </Document>
