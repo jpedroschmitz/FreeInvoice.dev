@@ -138,8 +138,9 @@ export function PDFDocument() {
           <Text style={tw('text-[10px] leading-[20px] font-medium')}></Text>
         </View>
 
-        <View fixed style={tw('mt-auto py-4 border-t border-[#E7EBF4]')}>
+        <View fixed style={tw('mt-auto py-4 border-t border-[#E7EBF4] flex flex-row items-center justify-between')}>
           <Text style={tw('text-[8px] font-medium')}>#27346733-022 · $93,100 due 7 March, 2023</Text>
+          <Text style={tw('text-[8px] font-medium')}>freeinvoice.dev</Text>
         </View>
       </Page>
     </Document>

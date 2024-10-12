@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 
-import { PDFDocument } from '@/app/PDFDocument';
+import { PDFDocument } from '@/app/pdf/PDFDocument';
 
 // Workaround for SSR issue with @react-pdf/renderer
 const PDFViewer = dynamic(() => import(`@react-pdf/renderer`).then((mod) => mod.PDFViewer), {
