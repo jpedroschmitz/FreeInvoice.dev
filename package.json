@@ -33,6 +33,8 @@
     "@react-pdf/renderer": "4.0.0",
     "autoprefixer": "10.4.20",
     "clsx": "2.1.1",
+    "currency.js": "2.0.4",
+    "date-fns": "4.1.0",
     "framer-motion": "11.11.7",
     "next": "14.2.14",
     "postcss": "8.4.47",
