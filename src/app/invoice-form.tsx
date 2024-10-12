@@ -194,7 +194,7 @@ export function InvoiceForm() {
               onClick={() => {
                 if (index !== 0) remove(index);
               }}
-              className="shrink-0 self-end"
+              className="shrink-0 self-center"
             >
               <TrashIcon />
             </Button>
