@@ -3,7 +3,7 @@
 import { Table, TD, TH, TR } from '@ag-media/react-pdf-table';
 import { Document, Font, Link, Page, Text, View } from '@react-pdf/renderer';
 import currency from 'currency.js';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import { createTw } from 'react-pdf-tailwind';
 
 import { InvoiceFormValues } from '@/app/invoice-form';
@@ -69,8 +69,8 @@ export function PDFDocument({
 
   const totalFormatted = formatCurrency(total.value, invoiceCurrency);
 
-  const invoiceDate = format(currentDate, 'yyyy-MM-dd');
-  const dueDate = format(new Date(due_date), 'yyyy-MM-dd');
+  const invoiceDate = format(currentDate, 'd MMMM, yyyy');
+  const dueDate = format(parseISO(due_date), 'd MMMM, yyyy');
 
   return (
     <Document
@@ -106,7 +106,7 @@ export function PDFDocument({
           <View style={tw('w-full')}>
             <Text style={tw('text-[10px] font-bold leading-none')}>Billed To</Text>
             <View style={tw('mt-5')}>
-              <Text style={tw('text-[10px] leading-none')}>{bill_to}</Text>
+              <Text style={tw('text-[10px] font-bold leading-none')}>{bill_to}</Text>
               <Text style={tw('text-[10px] leading-none mt-2')}>{bill_to_address}</Text>
               {vat_id ? <Text style={tw('text-[10px] leading-none mt-2')}>VAT-ID: {vat_id}</Text> : null}
             </View>
@@ -114,7 +114,7 @@ export function PDFDocument({
           <View style={tw('w-full')}>
             <Text style={tw('text-[10px] font-bold leading-none')}>From</Text>
             <View style={tw('mt-5')}>
-              <Text style={tw('text-[10px] leading-none')}>{company_name}</Text>
+              <Text style={tw('text-[10px] font-bold leading-none')}>{company_name}</Text>
               <Text style={tw('text-[10px] leading-none mt-2')}>{company_address}</Text>
             </View>
           </View>
@@ -141,13 +141,13 @@ export function PDFDocument({
                 <TD style={tw('text-[10px] items-center leading-none p-2')} weighting={0.5}>
                   {item.description}
                 </TD>
-                <TD style={tw('text-[10px] font-bold items-center justify-center leading-none p-2')} weighting={0.1}>
+                <TD style={tw('text-[10px] items-center justify-center leading-none p-2')} weighting={0.1}>
                   {item.quantity}
                 </TD>
-                <TD style={tw('text-[10px] font-bold items-center leading-none justify-end p-2 ')} weighting={0.2}>
+                <TD style={tw('text-[10px] items-center leading-none justify-end p-2 ')} weighting={0.2}>
                   {formatCurrency(currency(item.amount).value, invoiceCurrency)}
                 </TD>
-                <TD style={tw('text-[10px] font-bold items-center leading-none justify-end pr-2 py-2')} weighting={0.2}>
+                <TD style={tw('text-[10px] items-center leading-none justify-end pr-2 py-2')} weighting={0.2}>
                   {formatCurrency(currency(item.amount).multiply(item.quantity).value, invoiceCurrency)}
                 </TD>
               </TR>
