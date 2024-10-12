@@ -52,7 +52,7 @@ export default function Homepage() {
         </Sidebar>
       }
     >
-      <Heading>Welcome to Free Invoice</Heading>
+      <Heading>Free Invoice</Heading>
 
       <div className="mt-10">
         <InvoiceForm />

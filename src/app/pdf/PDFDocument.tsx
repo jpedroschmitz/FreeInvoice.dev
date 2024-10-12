@@ -134,8 +134,8 @@ export function PDFDocument() {
         </View>
 
         <View style={tw('mt-11')}>
-          {/*<Text style={tw('text-[10px] font-bold leading-none')}>Additional Information</Text>*/}
-          <Text style={tw('text-[10px] leading-[20px] font-medium')}></Text>
+          <Text style={tw('text-[10px] font-bold leading-none')}>Additional Information</Text>
+          <Text style={tw('text-[10px] leading-[20px] font-medium mt-5')}></Text>
         </View>
 
         <View fixed style={tw('mt-auto py-4 border-t border-[#E7EBF4] flex flex-row items-center justify-between')}>
