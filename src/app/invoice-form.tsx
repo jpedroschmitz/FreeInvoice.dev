@@ -9,11 +9,17 @@ import { z } from 'zod';
 
 import { PDFDocument } from '@/app/PDFDocument';
 import { Button } from '@/lib/ui/button';
-import { ErrorMessage, Field, FieldGroup, Fieldset, Label, Legend } from '@/lib/ui/fieldset';
+import { Description, ErrorMessage, Field, FieldGroup, Fieldset, Label, Legend } from '@/lib/ui/fieldset';
 import { Input } from '@/lib/ui/input';
 import { Select } from '@/lib/ui/select';
 import { Text } from '@/lib/ui/text';
 import { Textarea } from '@/lib/ui/textarea';
+
+const generateInvoiceId = () => {
+  const prefix = 'INV';
+  const timestamp = Date.now().toString(36); // Convert timestamp to base36
+  return `${prefix}-${timestamp}`.toUpperCase();
+};
 
 const formSchema = z.object({
   due_date: z
@@ -23,14 +29,11 @@ const formSchema = z.object({
     })
     .max(10),
   company_name: z.string().min(3, { message: 'Company name is required' }),
-  company_email: z.string().optional(),
   company_address: z.string().min(3, { message: 'Company address is required' }),
-  company_phone: z.string().optional(),
   bill_to: z.string().min(3, { message: 'Client name is required' }),
-  bill_to_email: z.string().optional(),
   bill_to_address: z.string().min(3, { message: 'Client address is required' }),
-  bill_to_phone: z.string().optional(),
   currency: z.string().min(3, { message: 'Currency is required' }),
+  vat_id: z.string().optional(),
   services: z.array(
     z.object({
       description: z.string().min(3, { message: 'Description is required' }),
@@ -66,11 +69,12 @@ export function InvoiceForm() {
   const onSubmit: SubmitHandler<InvoiceFormValues> = async (data) => {
     setIsGenerating(true);
     try {
-      const blob = await pdf(<PDFDocument {...data} />).toBlob();
+      const invoiceId = generateInvoiceId();
+      const blob = await pdf(<PDFDocument {...data} invoice_id={invoiceId} />).toBlob();
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'invoice.pdf';
+      link.download = `invoice-${invoiceId}.pdf`;
       link.click();
       URL.revokeObjectURL(url); // This frees up memory by releasing the reference to the blob
     } catch (error) {
@@ -100,16 +104,6 @@ export function InvoiceForm() {
             />
             {errors.company_address && <ErrorMessage>{errors.company_address.message}</ErrorMessage>}
           </Field>
-          <Field>
-            <Label htmlFor="company_email">Company Email (optional)</Label>
-            <Input id="company_email" placeholder="e.g., contact@yourcompany.com" {...register('company_email')} />
-            {errors.company_email && <ErrorMessage>{errors.company_email.message}</ErrorMessage>}
-          </Field>
-          <Field>
-            <Label htmlFor="company_phone">Company Phone (optional)</Label>
-            <Input id="company_phone" placeholder="e.g., +1 123 456 7890" {...register('company_phone')} />
-            {errors.company_phone && <ErrorMessage>{errors.company_phone.message}</ErrorMessage>}
-          </Field>
         </FieldGroup>
       </Fieldset>
 
@@ -133,16 +127,6 @@ export function InvoiceForm() {
               <ErrorMessage className="text-red-500">{errors.bill_to_address.message}</ErrorMessage>
             )}
           </Field>
-          <Field>
-            <Label htmlFor="bill_to_email">Client Email (optional)</Label>
-            <Input id="bill_to_email" placeholder="e.g., client@example.com" {...register('bill_to_email')} />
-            {errors.bill_to_email && <ErrorMessage>{errors.bill_to_email.message}</ErrorMessage>}
-          </Field>
-          <Field>
-            <Label htmlFor="bill_to_phone">Client Phone (optional)</Label>
-            <Input id="bill_to_phone" placeholder="e.g., +1 987 654 3210" {...register('bill_to_phone')} />
-            {errors.bill_to_phone && <ErrorMessage>{errors.bill_to_phone.message}</ErrorMessage>}
-          </Field>
         </FieldGroup>
       </Fieldset>
 
@@ -151,9 +135,10 @@ export function InvoiceForm() {
         <Text>Detail the products or services provided, including descriptions, amounts, and currency.</Text>
 
         <FieldGroup className="flex items-center gap-6 space-y-0">
-          <Field className="w-64">
+          <Field>
             <Label htmlFor="currency">Currency</Label>
-            <Select id="currency" {...register('currency')}>
+            <Description>The currency you are billing in. It will be used for all items.</Description>
+            <Select id="currency" {...register('currency')} className="w-64">
               <option value="">Select currency</option>
               <option value="USD">United States Dollar (USD)</option>
               <option value="EUR">Euro (EUR)</option>
@@ -230,26 +215,29 @@ export function InvoiceForm() {
 
       <Fieldset>
         <Legend>Additional Details</Legend>
-        <Text>Add any extra information such as VAT number, bank details, payment terms, or notes.</Text>
-        <FieldGroup className="space-y-8">
-          <Field className="w-64">
+        <FieldGroup className="grid grid-cols-2 gap-6 space-y-0">
+          <Field>
             <Label htmlFor="due_date">Due Date</Label>
             <Input type="date" id="due_date" {...register('due_date')} />
             {errors.due_date && <ErrorMessage>{errors.due_date.message}</ErrorMessage>}
           </Field>
           <Field>
-            <Label htmlFor="notes" className="sr-only">
-              Notes
-            </Label>
-            <Textarea
-              id="notes"
-              rows={10}
-              placeholder="e.g., VAT ID: 123456789, Bank Details: Bank Name, Account Number, Payment Terms: Net 30 days"
-              {...register('notes')}
-            />
-            {errors.notes && <ErrorMessage>{errors.notes.message}</ErrorMessage>}
+            <Label htmlFor="vat_id">VAT ID (optional)</Label>
+            <Input id="vat_id" {...register('vat_id')} />
+            {errors.vat_id && <ErrorMessage>{errors.vat_id.message}</ErrorMessage>}
           </Field>
         </FieldGroup>
+        <Field className="mt-8">
+          <Label htmlFor="notes">Notes</Label>
+          <Description>Add any extra information such bank details, payment terms, or notes.</Description>
+          <Textarea
+            id="notes"
+            rows={10}
+            placeholder="e.g., Bank Details: Bank Name, Account Number, Payment Terms: Net 30 days"
+            {...register('notes')}
+          />
+          {errors.notes && <ErrorMessage>{errors.notes.message}</ErrorMessage>}
+        </Field>
       </Fieldset>
 
       <Button type="submit" className="mt-10" disabled={isGenerating}>

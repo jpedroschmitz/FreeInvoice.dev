@@ -29,6 +29,7 @@ export const Textarea = forwardRef(function Textarea(
     >
       <Headless.Textarea
         ref={ref}
+        data-1p-ignore
         {...props}
         className={clsx([
           // Basic layout

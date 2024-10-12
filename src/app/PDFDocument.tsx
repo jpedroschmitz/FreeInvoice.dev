@@ -49,20 +49,19 @@ const formatCurrency = (amount: number, currency: string) => {
 
 export function PDFDocument({
   bill_to,
-  bill_to_phone,
-  bill_to_email,
   bill_to_address,
   company_address,
-  company_email,
   company_name,
-  company_phone,
   currency: invoiceCurrency = 'USD',
   due_date,
   notes,
+  vat_id,
   services = [],
-}: InvoiceFormValues) {
+  invoice_id,
+}: InvoiceFormValues & {
+  invoice_id: string;
+}) {
   const currentDate = new Date();
-  const randomNumber = Math.floor(Math.random() * 10000);
 
   const total = services
     .map((service) => currency(service.amount).multiply(service.quantity))
@@ -75,18 +74,18 @@ export function PDFDocument({
 
   return (
     <Document
-      title="Invoice"
-      creator="Invoice"
+      title={`Invoice ${invoice_id}`}
+      creator="Free Invoice"
       producer="freeinvoice.dev"
-      author="Invoice"
-      subject="Invoice"
+      author={company_name}
+      subject={`Invoice for ${bill_to}`}
       creationDate={currentDate}
     >
       <Page size="A4" style={tw('pt-[36px] px-[36px] font-sans text-primary antialiased')}>
         <View style={tw('flex flex-row justify-between')}>
           <View>
             <Text style={tw('text-[24px] font-bold leading-none')}>Invoice</Text>
-            <Text style={tw('text-[10px] mt-6 leading-none font-medium tracking-wide')}>#{randomNumber}</Text>
+            <Text style={tw('text-[10px] mt-6 leading-none font-medium tracking-wide')}>#{invoice_id}</Text>
           </View>
         </View>
 
@@ -107,27 +106,16 @@ export function PDFDocument({
           <View style={tw('w-full')}>
             <Text style={tw('text-[10px] font-bold leading-none')}>Billed To</Text>
             <View style={tw('mt-5')}>
-              <Text style={tw('text-[10px] font-bold leading-none')}>{bill_to}</Text>
-              {bill_to_email ? (
-                <Text style={tw('text-[10px] font-bold leading-none mt-2')}>{bill_to_email}</Text>
-              ) : null}
-              <Text style={tw('text-[10px] font-medium leading-none mt-2')}>{bill_to_address}</Text>
-              {bill_to_phone ? (
-                <Text style={tw('text-[10px] font-medium leading-none mt-2')}>{bill_to_phone}</Text>
-              ) : null}
+              <Text style={tw('text-[10px] leading-none')}>{bill_to}</Text>
+              <Text style={tw('text-[10px] leading-none mt-2')}>{bill_to_address}</Text>
+              {vat_id ? <Text style={tw('text-[10px] leading-none mt-2')}>VAT-ID: {vat_id}</Text> : null}
             </View>
           </View>
           <View style={tw('w-full')}>
             <Text style={tw('text-[10px] font-bold leading-none')}>From</Text>
             <View style={tw('mt-5')}>
-              <Text style={tw('text-[10px] font-bold leading-none')}>{company_name}</Text>
-              {company_email ? (
-                <Text style={tw('text-[10px] font-bold leading-none mt-2')}>{company_email}</Text>
-              ) : null}
-              <Text style={tw('text-[10px] font-medium leading-none mt-2')}>{company_address}</Text>
-              {company_phone ? (
-                <Text style={tw('text-[10px] font-medium leading-none mt-2')}>{company_phone}</Text>
-              ) : null}
+              <Text style={tw('text-[10px] leading-none')}>{company_name}</Text>
+              <Text style={tw('text-[10px] leading-none mt-2')}>{company_address}</Text>
             </View>
           </View>
         </View>
@@ -188,7 +176,7 @@ export function PDFDocument({
 
         <View fixed style={tw('mt-auto py-4 border-t border-[#E7EBF4] flex flex-row items-center justify-between')}>
           <Text style={tw('text-[8px] font-medium')}>
-            #{randomNumber} · {totalFormatted} due {dueDate}
+            #{invoice_id} · {totalFormatted} due {dueDate}
           </Text>
           <Link style={tw('text-[8px] font-medium text-primary')} href="https://freeinvoice.dev">
             freeinvoice.dev
