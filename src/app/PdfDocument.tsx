@@ -1,12 +1,19 @@
-'use client';
-
 import { Table, TD, TH, TR } from '@ag-media/react-pdf-table';
 import { Document, Font, Link, Page, Text, View } from '@react-pdf/renderer';
 import currency from 'currency.js';
 import { format, parseISO } from 'date-fns';
 import { createTw } from 'react-pdf-tailwind';
 
-import { InvoiceFormValues } from '@/app/invoice-form';
+import { InvoiceFormValues } from '@/app/validation';
+
+const formatCurrency = (amount: number, currency: string) => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: currency,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(amount);
+};
 
 Font.register({
   family: `DM Sans`,
@@ -38,29 +45,24 @@ const tw = createTw({
   },
 });
 
-const formatCurrency = (amount: number, currency: string) => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: currency,
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(amount);
+type InvoiceData = InvoiceFormValues & {
+  invoice_id: string;
 };
 
-export function PDFDocument({
-  bill_to,
-  bill_to_address,
-  company_address,
-  company_name,
-  currency: invoiceCurrency = 'USD',
-  due_date,
-  notes,
-  vat_id,
-  services = [],
-  invoice_id,
-}: InvoiceFormValues & {
-  invoice_id: string;
-}) {
+export function PdfDocument({ invoice }: { invoice: InvoiceData }) {
+  const {
+    bill_to,
+    bill_to_address,
+    company_address,
+    company_name,
+    currency: invoiceCurrency = 'USD',
+    due_date,
+    notes,
+    vat_id,
+    services = [],
+    invoice_id,
+  } = invoice;
+
   const currentDate = new Date();
 
   const total = services

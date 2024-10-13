@@ -5,9 +5,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { pdf } from '@react-pdf/renderer';
 import { useState } from 'react';
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
-import { z } from 'zod';
 
-import { PDFDocument } from '@/app/PDFDocument';
+import { InvoiceFormValues, invoiceSchema } from '@/app/validation';
 import { Button } from '@/lib/ui/button';
 import { Description, ErrorMessage, Field, FieldGroup, Fieldset, Label, Legend } from '@/lib/ui/fieldset';
 import { Input } from '@/lib/ui/input';
@@ -21,31 +20,6 @@ const generateInvoiceId = () => {
   return `${prefix}-${timestamp}`.toUpperCase();
 };
 
-const formSchema = z.object({
-  due_date: z
-    .string()
-    .min(10, {
-      message: 'Due date is required',
-    })
-    .max(10),
-  company_name: z.string().min(3, { message: 'Company name is required' }),
-  company_address: z.string().min(3, { message: 'Company address is required' }),
-  bill_to: z.string().min(3, { message: 'Client name is required' }),
-  bill_to_address: z.string().min(3, { message: 'Client address is required' }),
-  currency: z.string().min(3, { message: 'Currency is required' }),
-  vat_id: z.string().optional(),
-  services: z.array(
-    z.object({
-      description: z.string().min(3, { message: 'Description is required' }),
-      quantity: z.string().optional().default('1'),
-      amount: z.string().min(1, { message: 'Amount is required' }),
-    })
-  ),
-  notes: z.string().optional(),
-});
-
-export type InvoiceFormValues = z.infer<typeof formSchema>;
-
 export function InvoiceForm() {
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -55,7 +29,7 @@ export function InvoiceForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<InvoiceFormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(invoiceSchema),
     defaultValues: {
       services: [{ description: '', quantity: '1', amount: '' }],
     },
@@ -70,7 +44,15 @@ export function InvoiceForm() {
     setIsGenerating(true);
     try {
       const invoiceId = generateInvoiceId();
-      const blob = await pdf(<PDFDocument {...data} invoice_id={invoiceId} />).toBlob();
+      const { PdfDocument } = await import('@/app/PdfDocument');
+      const blob = await pdf(
+        <PdfDocument
+          invoice={{
+            ...data,
+            invoice_id: invoiceId,
+          }}
+        />
+      ).toBlob();
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
@@ -241,7 +223,7 @@ export function InvoiceForm() {
       </Fieldset>
 
       <Button type="submit" className="mt-10" disabled={isGenerating}>
-        {isGenerating ? 'Generating PDF...' : 'Download PDF'}
+        Download PDF
       </Button>
     </form>
   );
