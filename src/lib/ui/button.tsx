@@ -55,7 +55,7 @@ const styles = {
     // Dark mode
     'dark:text-white dark:data-[active]:bg-white/10 dark:data-[hover]:bg-white/10',
     // Icon
-    '[--btn-icon:theme(colors.zinc.500)] data-[active]:[--btn-icon:theme(colors.zinc.700)] data-[hover]:[--btn-icon:theme(colors.zinc.700)] dark:[--btn-icon:theme(colors.zinc.500)] dark:data-[active]:[--btn-icon:theme(colors.zinc.400)] dark:data-[hover]:[--btn-icon:theme(colors.zinc.400)]',
+    // '[--btn-icon:theme(colors.zinc.500)] data-[active]:[--btn-icon:theme(colors.zinc.700)] data-[hover]:[--btn-icon:theme(colors.zinc.700)] dark:[--btn-icon:theme(colors.zinc.500)] dark:data-[active]:[--btn-icon:theme(colors.zinc.400)] dark:data-[hover]:[--btn-icon:theme(colors.zinc.400)]',
   ],
   colors: {
     'dark/zinc': [
@@ -162,7 +162,7 @@ const styles = {
 type ButtonProps = (
   | { color?: keyof typeof styles.colors; outline?: never; plain?: never }
   | { color?: never; outline: true; plain?: never }
-  | { color?: never; outline?: never; plain: true }
+  | { color?: keyof typeof styles.colors; outline?: never; plain: true }
 ) & { className?: string; children: React.ReactNode } & (
     | Omit<Headless.ButtonProps, 'as' | 'className'>
     | Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'>
@@ -175,7 +175,11 @@ export const Button = forwardRef(function Button(
   const classes = clsx(
     className,
     styles.base,
-    outline ? styles.outline : plain ? styles.plain : clsx(styles.solid, styles.colors[color ?? 'dark/zinc'])
+    outline
+      ? styles.outline
+      : plain
+        ? clsx(styles.plain, styles.colors[color ?? 'dark/zinc'])
+        : clsx(styles.solid, styles.colors[color ?? 'dark/zinc'])
   );
 
   return 'href' in props ? (

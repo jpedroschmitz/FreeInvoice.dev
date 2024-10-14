@@ -9,6 +9,7 @@ import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 
 import { InvoiceFormValues, invoiceSchema } from '@/app/validation';
 import { Button } from '@/lib/ui/button';
+import { Divider } from '@/lib/ui/divider';
 import { Description, ErrorMessage, Field, FieldGroup, Fieldset, Label, Legend } from '@/lib/ui/fieldset';
 import { Input } from '@/lib/ui/input';
 import { Select } from '@/lib/ui/select';
@@ -85,7 +86,7 @@ export function InvoiceForm() {
       <Fieldset>
         <Legend>Your Company Details</Legend>
         <Text>Provide your company&#39;s official name and address as they should appear on the invoice.</Text>
-        <FieldGroup className="grid grid-cols-2 gap-6 space-y-0">
+        <FieldGroup className="grid md:grid-cols-2 gap-8 md:gap-6">
           <Field>
             <Label htmlFor="company_name">Company Name</Label>
             <Input id="company_name" placeholder="e.g., ABC Corporation Ltd." {...register('company_name')} />
@@ -106,7 +107,7 @@ export function InvoiceForm() {
       <Fieldset>
         <Legend>Client Information</Legend>
         <Text>Enter the name and address of the person or company you are billing.</Text>
-        <FieldGroup className="grid grid-cols-2 gap-6 space-y-0">
+        <FieldGroup className="grid md:grid-cols-2 gap-8 md:gap-6">
           <Field>
             <Label htmlFor="bill_to">Client Name</Label>
             <Input id="bill_to" placeholder="e.g., John Doe" {...register('bill_to')} />
@@ -130,7 +131,7 @@ export function InvoiceForm() {
         <Legend>Invoice Items</Legend>
         <Text>Detail the products or services provided, including descriptions, amounts, and currency.</Text>
 
-        <FieldGroup className="flex items-center gap-6 space-y-0">
+        <FieldGroup className="space-y-8">
           <Field>
             <Label htmlFor="currency">Currency</Label>
             <Description>The currency you are billing in. It will be used for all items.</Description>
@@ -149,10 +150,12 @@ export function InvoiceForm() {
             </Select>
             {errors.currency && <ErrorMessage>{errors.currency.message}</ErrorMessage>}
           </Field>
+
+          <Divider className="md:hidden" />
         </FieldGroup>
 
         {fields.map((field, index) => (
-          <FieldGroup key={field.id} className="flex gap-6 space-y-0">
+          <FieldGroup key={field.id} className="relative flex gap-8 md:gap-6 flex-col md:flex-row">
             <Field className="w-full">
               <Label htmlFor={`services.${index}.description`}>Item Description</Label>
               <Input
@@ -164,14 +167,14 @@ export function InvoiceForm() {
                 <ErrorMessage>{errors.services[index]?.description?.message}</ErrorMessage>
               )}
             </Field>
-            <Field className="w-40">
+            <Field className="md:w-40">
               <Label htmlFor={`services.${index}.quantity`}>Quantity</Label>
               <Input id={`services.${index}.quantity`} type="number" {...register(`services.${index}.quantity`)} />
               {errors.services?.[index]?.quantity && (
                 <ErrorMessage>{errors.services[index]?.quantity?.message}</ErrorMessage>
               )}
             </Field>
-            <Field className="w-64">
+            <Field className="md:w-64">
               <Label htmlFor={`services.${index}.amount`}>Amount</Label>
               <CurrencyInput
                 key={currency}
@@ -190,7 +193,7 @@ export function InvoiceForm() {
                 <ErrorMessage>{errors.services[index]?.amount?.message}</ErrorMessage>
               )}
             </Field>
-            <div className="w-[34px] h-full flex items-stretch flex-1 shrink-0">
+            <div className="w-[34px] h-full items-stretch flex-1 shrink-0 hidden md:flex">
               <Button
                 type="button"
                 color="red"
@@ -198,11 +201,28 @@ export function InvoiceForm() {
                 onClick={() => {
                   if (index !== 0) remove(index);
                 }}
-                className="mt-9"
+                className="md:mt-9"
               >
                 <TrashIcon />
               </Button>
             </div>
+
+            <div className="absolute -top-3 right-0 md:hidden">
+              <Button
+                plain
+                type="button"
+                color="red"
+                className="[--btn-icon:theme(colors.red.600)] data-[active]:[--btn-icon:theme(colors.red.900)]"
+                disabled={index === 0}
+                onClick={() => {
+                  if (index !== 0) remove(index);
+                }}
+              >
+                <TrashIcon className="" />
+              </Button>
+            </div>
+
+            <Divider className="md:hidden" />
           </FieldGroup>
         ))}
         <Button
@@ -211,14 +231,14 @@ export function InvoiceForm() {
           onClick={() => append({ description: '', quantity: '1', amount: '' })}
           className="mt-6"
         >
-          Add Item
+          Add new item
           <PlusIcon />
         </Button>
       </Fieldset>
 
       <Fieldset>
         <Legend>Additional Details</Legend>
-        <FieldGroup className="grid grid-cols-2 gap-6 space-y-0">
+        <FieldGroup className="grid md:grid-cols-2 gap-8 md:gap-6">
           <Field>
             <Label htmlFor="due_date">Due Date</Label>
             <Input type="date" id="due_date" {...register('due_date')} />
