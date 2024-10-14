@@ -77,8 +77,8 @@ export function PdfDocument({ invoice }: { invoice: InvoiceData }) {
   return (
     <Document
       title={`Invoice ${invoice_id}`}
-      creator="Free Invoice"
-      producer="freeinvoice.dev"
+      creator="FreeInvoice.dev"
+      producer="FreeInvoice.dev"
       author={company_name}
       subject={`Invoice for ${bill_to}`}
       creationDate={currentDate}
