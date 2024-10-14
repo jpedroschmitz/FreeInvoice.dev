@@ -182,7 +182,7 @@ export function PdfDocument({ invoice }: { invoice: InvoiceData }) {
             #{invoice_id} · {totalFormatted} due {dueDate}
           </Text>
           <Link style={tw('text-[8px] font-medium text-primary')} href="https://freeinvoice.dev">
-            freeinvoice.dev
+            FreeInvoice.dev
           </Link>
         </View>
       </Page>
