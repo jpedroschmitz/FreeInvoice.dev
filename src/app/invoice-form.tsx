@@ -59,6 +59,15 @@ export function InvoiceForm() {
       link.download = `invoice-${invoiceId}.pdf`;
       link.click();
       URL.revokeObjectURL(url); // This frees up memory by releasing the reference to the blob
+
+      // Plausible event
+      if (
+        typeof window.plausible !== 'undefined' &&
+        process.env.NODE_ENV === 'production' &&
+        process.env.VERCEL_ENV === 'production'
+      ) {
+        window.plausible('Invoice_Generated');
+      }
     } catch (error) {
       console.error('Error generating PDF:', error);
     } finally {
