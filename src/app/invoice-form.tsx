@@ -66,7 +66,11 @@ export function InvoiceForm() {
         process.env.NODE_ENV === 'production' &&
         process.env.VERCEL_ENV === 'production'
       ) {
-        window.plausible('Invoice_Generated');
+        window.plausible('Invoice_Generated', {
+          callback: () => {
+            console.log('Plausible event sent: Invoice_Generated');
+          },
+        });
       }
     } catch (error) {
       console.error('Error generating PDF:', error);

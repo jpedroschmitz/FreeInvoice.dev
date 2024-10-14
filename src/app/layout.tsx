@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 declare global {
   interface Window {
-    plausible: (event: string, options?: { u: string }) => void;
+    plausible: (event: string, options?: { u?: string; callback?: () => void }) => void;
   }
 }
 
