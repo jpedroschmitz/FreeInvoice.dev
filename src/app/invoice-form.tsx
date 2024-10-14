@@ -4,6 +4,7 @@ import { PlusIcon, TrashIcon } from '@heroicons/react/16/solid';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { pdf } from '@react-pdf/renderer';
 import { useState } from 'react';
+import CurrencyInput from 'react-currency-input-field';
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 
 import { InvoiceFormValues, invoiceSchema } from '@/app/validation';
@@ -27,13 +28,17 @@ export function InvoiceForm() {
     register,
     control,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<InvoiceFormValues>({
     resolver: zodResolver(invoiceSchema),
     defaultValues: {
+      currency: 'USD',
       services: [{ description: '', quantity: '1', amount: '' }],
     },
   });
+
+  const currency = watch('currency');
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -172,10 +177,17 @@ export function InvoiceForm() {
             </Field>
             <Field className="w-64">
               <Label htmlFor={`services.${index}.amount`}>Amount</Label>
-              <Input
+              <CurrencyInput
+                key={currency}
                 id={`services.${index}.amount`}
-                type="number"
+                customInput={Input}
                 placeholder="e.g., 1500.00"
+                allowNegativeValue={false}
+                allowDecimals
+                intlConfig={{
+                  locale: 'en-US',
+                  currency: currency || 'USD',
+                }}
                 {...register(`services.${index}.amount`)}
               />
               {errors.services?.[index]?.amount && (

@@ -39,6 +39,7 @@
     "next": "14.2.8",
     "postcss": "8.4.47",
     "react": "18.3.1",
+    "react-currency-input-field": "3.8.0",
     "react-dom": "18.3.1",
     "react-hook-form": "7.53.0",
     "react-pdf-tailwind": "2.3.0",
@@ -46,8 +47,6 @@
     "zod": "3.23.8"
   },
   "devDependencies": {
-    "@commitlint/cli": "19.5.0",
-    "@commitlint/config-conventional": "19.5.0",
     "@ianvs/prettier-plugin-sort-imports": "4.3.1",
     "@types/node": "20.16.10",
     "@types/react": "18.3.11",
