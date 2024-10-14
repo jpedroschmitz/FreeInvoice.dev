@@ -118,6 +118,7 @@ export function PdfDocument({ invoice }: { invoice: InvoiceData }) {
             <View style={tw('mt-5')}>
               <Text style={tw('text-[10px] font-bold leading-none')}>{company_name}</Text>
               <Text style={tw('text-[10px] leading-none mt-2')}>{company_address}</Text>
+              {vat_id ? <Text style={tw('text-[10px] leading-none mt-2 pointer-events-none')}>&nbsp;</Text> : null}
             </View>
           </View>
         </View>
