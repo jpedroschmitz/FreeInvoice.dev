@@ -1,5 +1,5 @@
 import { LightBulbIcon } from '@heroicons/react/16/solid';
-import { HomeIcon, QuestionMarkCircleIcon } from '@heroicons/react/20/solid';
+import { HomeIcon } from '@heroicons/react/20/solid';
 import { Metadata } from 'next';
 
 import { InvoiceForm } from '@/app/invoice-form';
@@ -55,13 +55,9 @@ export default function Homepage() {
                 <HomeIcon />
                 <SidebarLabel>Home</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="mailto:hey@joaopedro.dev">
-                <QuestionMarkCircleIcon />
-                <SidebarLabel>Support</SidebarLabel>
-              </SidebarItem>
               <SidebarItem href="https://tally.so/r/wQJqag">
                 <LightBulbIcon />
-                <SidebarLabel>Share feedback</SidebarLabel>
+                <SidebarLabel>Feedback</SidebarLabel>
               </SidebarItem>
             </SidebarSection>
             {/*<SidebarSection className="max-lg:hidden">*/}
