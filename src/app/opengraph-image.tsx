@@ -15,9 +15,6 @@ export const contentType = 'image/png';
 
 // Image generation
 export default async function Image() {
-  // Font
-  // const interSemiBold = fetch(new URL('./Inter-SemiBold.ttf', import.meta.url)).then((res) => res.arrayBuffer());
-
   return new ImageResponse(
     (
       // ImageResponse JSX element
@@ -42,14 +39,6 @@ export default async function Image() {
       // For convenience, we can re-use the exported opengraph-image
       // size config to also set the ImageResponse's width and height.
       ...size,
-      // fonts: [
-      //   {
-      //     name: 'Inter',
-      //     data: await interSemiBold,
-      //     style: 'normal',
-      //     weight: 400,
-      //   },
-      // ],
     }
   );
 }

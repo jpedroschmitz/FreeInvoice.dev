@@ -1,22 +1,13 @@
-import { Inter } from 'next/font/google';
-
 import './globals.css';
 
 import { LightBulbIcon } from '@heroicons/react/16/solid';
 import { HomeIcon } from '@heroicons/react/20/solid';
-import clsx from 'clsx';
 import { Viewport } from 'next';
 import Script from 'next/script';
 
 import { Navbar, NavbarItem, NavbarSection, NavbarSpacer } from '@/lib/ui/navbar';
 import { Sidebar, SidebarBody, SidebarHeader, SidebarItem, SidebarLabel, SidebarSection } from '@/lib/ui/sidebar';
 import { SidebarLayout } from '@/lib/ui/sidebar-layout';
-
-const inter = Inter({
-  display: 'swap',
-  subsets: ['latin'],
-  variable: '--font-sans',
-});
 
 export const viewport: Viewport = {
   themeColor: '#f4f4f5',
@@ -31,7 +22,7 @@ declare global {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={clsx(inter.variable, 'bg-zinc-100 dark:bg-zink-900')}>
+      <body className="bg-zinc-100 dark:bg-zink-900">
         <SidebarLayout
           navbar={
             <Navbar>
