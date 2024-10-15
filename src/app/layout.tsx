@@ -2,9 +2,15 @@ import { Inter } from 'next/font/google';
 
 import './globals.css';
 
+import { LightBulbIcon } from '@heroicons/react/16/solid';
+import { HomeIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
 import { Viewport } from 'next';
 import Script from 'next/script';
+
+import { Navbar, NavbarItem, NavbarSection, NavbarSpacer } from '@/lib/ui/navbar';
+import { Sidebar, SidebarBody, SidebarHeader, SidebarItem, SidebarLabel, SidebarSection } from '@/lib/ui/sidebar';
+import { SidebarLayout } from '@/lib/ui/sidebar-layout';
 
 const inter = Inter({
   display: 'swap',
@@ -25,7 +31,45 @@ declare global {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={clsx(inter.variable, 'bg-zinc-100 dark:bg-zink-900')}>{children}</body>
+      <body className={clsx(inter.variable, 'bg-zinc-100 dark:bg-zink-900')}>
+        <SidebarLayout
+          navbar={
+            <Navbar>
+              <NavbarSpacer />
+              <NavbarSection>
+                <NavbarItem href="/">
+                  FreeInvoice.dev
+                  {/*<Avatar src="/profile-photo.jpg" square />*/}
+                </NavbarItem>
+              </NavbarSection>
+            </Navbar>
+          }
+          sidebar={
+            <Sidebar>
+              <SidebarHeader>
+                <SidebarLabel className="hidden lg:block">FreeInvoice.dev</SidebarLabel>
+              </SidebarHeader>
+              <SidebarBody>
+                <SidebarSection>
+                  <SidebarItem href="/">
+                    <HomeIcon />
+                    <SidebarLabel>Home</SidebarLabel>
+                  </SidebarItem>
+                  <SidebarItem href="https://tally.so/r/wQJqag">
+                    <LightBulbIcon />
+                    <SidebarLabel>Feedback</SidebarLabel>
+                  </SidebarItem>
+                </SidebarSection>
+                {/*<SidebarSection className="max-lg:hidden">*/}
+                {/*  <SidebarHeading>Advertisement</SidebarHeading>*/}
+                {/*</SidebarSection>*/}
+              </SidebarBody>
+            </Sidebar>
+          }
+        >
+          {children}
+        </SidebarLayout>
+      </body>
       {process.env.NODE_ENV === 'production' && process.env.VERCEL_ENV === 'production' && (
         <>
           <Script
