@@ -13,6 +13,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
+    "build:analyze": "ANALYZE=true next build",
     "start": "next start",
     "type-check": "tsc --noEmit",
     "lint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\"",
@@ -30,6 +31,7 @@
     "@headlessui/react": "2.1.9",
     "@heroicons/react": "2.1.5",
     "@hookform/resolvers": "3.9.0",
+    "@next/bundle-analyzer": "14.2.15",
     "@react-pdf/renderer": "4.0.0",
     "autoprefixer": "10.4.20",
     "clsx": "2.1.1",

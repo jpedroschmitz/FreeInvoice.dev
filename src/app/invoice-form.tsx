@@ -2,7 +2,6 @@
 
 import { PlusIcon, TrashIcon } from '@heroicons/react/16/solid';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { pdf } from '@react-pdf/renderer';
 import { useState } from 'react';
 import CurrencyInput from 'react-currency-input-field';
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
@@ -59,6 +58,7 @@ export function InvoiceForm() {
 
     try {
       const invoiceId = generateInvoiceId();
+      const { pdf } = await import('@react-pdf/renderer');
       const { PdfDocument } = await import('@/app/PdfDocument');
       const blob = await pdf(
         <PdfDocument
