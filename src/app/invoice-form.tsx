@@ -212,13 +212,14 @@ export function InvoiceForm() {
                 plain
                 type="button"
                 color="red"
+                aria-label="Remove item"
                 className="[--btn-icon:theme(colors.red.600)] data-[active]:[--btn-icon:theme(colors.red.900)]"
                 disabled={index === 0}
                 onClick={() => {
                   if (index !== 0) remove(index);
                 }}
               >
-                <TrashIcon className="" />
+                <TrashIcon />
               </Button>
             </div>
 
