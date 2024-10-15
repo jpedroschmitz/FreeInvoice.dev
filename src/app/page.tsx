@@ -8,8 +8,8 @@ import { Navbar, NavbarItem, NavbarSection, NavbarSpacer } from '@/lib/ui/navbar
 import { Sidebar, SidebarBody, SidebarHeader, SidebarItem, SidebarLabel, SidebarSection } from '@/lib/ui/sidebar';
 import { SidebarLayout } from '@/lib/ui/sidebar-layout';
 
-const pageTitle = 'FreeInvoice.dev - Simple, Free, and Secure Invoicing Tool';
-const pageDescription = `No sign-up or tracking. Create professional invoices effortlessly with FreeInvoice.dev. Completely free, user-friendly, and secure with client-side processing — your data stays with you.`;
+const pageTitle = 'FreeInvoice.dev - Simple and Free Invoice Tool. No sign-up.';
+const pageDescription = `Create professional invoices effortlessly with FreeInvoice.dev. Completely free, user-friendly, and secure with client-side processing — your data stays with you.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://freeinvoice.dev'),
