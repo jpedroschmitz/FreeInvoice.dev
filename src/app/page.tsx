@@ -28,6 +28,11 @@ export const metadata: Metadata = {
     title: pageTitle,
     description: pageDescription,
   },
+  verification: {
+    other: {
+      'google-adsense-account': 'ca-pub-3117643386114963',
+    },
+  },
 };
 
 export default function Homepage() {
