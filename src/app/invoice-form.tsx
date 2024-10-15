@@ -197,6 +197,7 @@ export function InvoiceForm() {
               <Button
                 type="button"
                 color="red"
+                aria-label="Remove item"
                 disabled={index === 0}
                 onClick={() => {
                   if (index !== 0) remove(index);
