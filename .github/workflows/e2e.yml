@@ -27,20 +27,11 @@ jobs:
           node-version: lts/*
           cache: 'pnpm'
 
-      - name: Cache Playwright Binaries
-        uses: actions/cache@v4
-        id: playwright-cache
-        with:
-          path: |
-            ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-1.48.1
-
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
       - name: Install Playwright Browsers
-        run: pnpx playwright@1.48.1 install --with-deps chromium
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install --with-deps
 
       - name: Run Playwright tests
         env:
