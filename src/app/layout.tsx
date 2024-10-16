@@ -38,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           sidebar={
             <Sidebar>
               <SidebarHeader>
-                <SidebarLabel className="hidden lg:block">FreeInvoice.dev</SidebarLabel>
+                <SidebarLabel className="hidden lg:block dark:text-white">FreeInvoice.dev</SidebarLabel>
               </SidebarHeader>
               <SidebarBody>
                 <SidebarSection>
