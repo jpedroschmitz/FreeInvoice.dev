@@ -15,6 +15,8 @@
     "build": "next build",
     "build:analyze": "ANALYZE=true next build",
     "start": "next start",
+    "test:e2e": "playwright test",
+    "test:e2e:playwright": "playwright test --ui",
     "type-check": "tsc --noEmit",
     "lint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\"",
     "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write",
@@ -50,6 +52,7 @@
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "4.3.1",
+    "@playwright/test": "1.48.1",
     "@types/node": "20.16.10",
     "@types/react": "18.3.11",
     "@types/react-dom": "18.3.0",
