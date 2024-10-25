@@ -48,7 +48,7 @@ export function InvoiceForm() {
   const onSubmit: SubmitHandler<InvoiceFormValues> = async (data) => {
     setIsGenerating(true);
     // Plausible event tracking
-    if (typeof window.plausible !== 'undefined' && process.env.NODE_ENV === 'production') {
+    if (typeof window.plausible !== 'undefined' && process.env.NODE_ENV === 'production' && process.env.CI !== 'true') {
       window.plausible('Invoice_Generated', {
         callback: () => {
           console.log('Plausible event sent: Invoice_Generated');
