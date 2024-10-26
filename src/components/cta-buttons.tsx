@@ -6,7 +6,7 @@ export function CTAButtons() {
   return (
     <>
       <Link
-        href="/"
+        href="/app"
         onClick={() => {
           if (
             typeof window.plausible !== 'undefined' &&

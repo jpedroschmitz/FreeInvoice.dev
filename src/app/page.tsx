@@ -2,43 +2,14 @@ import {
   CheckCircleIcon,
   CloudArrowDownIcon,
   CurrencyDollarIcon,
+  DocumentCheckIcon,
   GlobeAltIcon,
-  LockClosedIcon,
   ShieldCheckIcon,
   UserPlusIcon,
 } from '@heroicons/react/20/solid';
-import { Metadata } from 'next';
 
 import { CTAButtons } from '@/components/cta-buttons';
-import { Header } from '@/components/header';
 import { Link } from '@/lib/ui/link';
-
-const pageTitle = 'FreeInvoice.dev - Simple and Free Invoice Tool. No sign-up.';
-const pageDescription = `Create professional invoices effortlessly with FreeInvoice.dev. Completely free, user-friendly, and secure with client-side processing — your data stays with you.`;
-
-export const metadata: Metadata = {
-  metadataBase: new URL('https://freeinvoice.dev'),
-  title: pageTitle,
-  description: pageDescription,
-  alternates: {
-    canonical: '/',
-  },
-  openGraph: {
-    title: pageTitle,
-    description: pageDescription,
-    type: 'website',
-    url: '/',
-  },
-  twitter: {
-    title: pageTitle,
-    description: pageDescription,
-  },
-  verification: {
-    other: {
-      'google-adsense-account': 'ca-pub-3117643386114963',
-    },
-  },
-};
 
 const features = [
   {
@@ -72,87 +43,83 @@ const features = [
     icon: GlobeAltIcon,
   },
   {
-    name: 'Data Privacy',
+    name: 'VAT Support',
     description:
-      'Built with privacy-first approach. No cookies, no tracking, no data collection. Generate invoices with complete peace of mind.',
-    icon: LockClosedIcon,
+      'Include your VAT ID and customize tax information. Perfect for businesses in the EU and international trade requiring tax documentation.',
+    icon: DocumentCheckIcon,
   },
 ];
 
 export default function Homepage() {
   return (
-    <main>
-      <div className="bg-white">
-        <Header />
-
-        <div className="relative isolate pt-14">
+    <>
+      <div className="relative isolate pt-14">
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+        >
           <div
-            aria-hidden="true"
-            className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-          >
-            <div
-              style={{
-                clipPath:
-                  'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-              }}
-              className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-            />
-          </div>
-          <div className="py-24 sm:py-32 lg:pb-40">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <div className="mx-auto max-w-2xl text-center">
-                <h1 className="text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
-                  Professional Invoices in Seconds
-                </h1>
-                <p className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8">
-                  Create unlimited professional invoices without signing up or paying anything. Your data stays in your
-                  browser, making it completely secure and private. Start invoicing immediately with our free, simple
-                  tool.
-                </p>
-                <div className="mt-10 flex items-center justify-center gap-x-6">
-                  <CTAButtons />
-                </div>
+            style={{
+              clipPath:
+                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+            }}
+            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+          />
+        </div>
+        <div className="py-24 sm:py-32 lg:pb-40">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto max-w-2xl text-center">
+              <h1 className="text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
+                Professional Invoices in Seconds
+              </h1>
+              <p className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8">
+                Create unlimited professional invoices without signing up or paying anything. Your data stays in your
+                browser, making it completely secure and private. Start invoicing immediately with our free, simple
+                tool.
+              </p>
+              <div className="mt-10 flex items-center justify-center gap-x-6">
+                <CTAButtons />
               </div>
-              {/*<div className="mt-16 flow-root sm:mt-24">*/}
-              {/*  <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">*/}
-              {/*    <img*/}
-              {/*      alt="App screenshot"*/}
-              {/*      src="https://tailwindui.com/plus/img/component-images/project-app-screenshot.png"*/}
-              {/*      width={2432}*/}
-              {/*      height={1442}*/}
-              {/*      className="rounded-md shadow-2xl ring-1 ring-gray-900/10"*/}
-              {/*    />*/}
-              {/*  </div>*/}
-              {/*</div>*/}
             </div>
+            {/*<div className="mt-16 flow-root sm:mt-24">*/}
+            {/*  <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">*/}
+            {/*    <img*/}
+            {/*      alt="App screenshot"*/}
+            {/*      src="https://tailwindui.com/plus/img/component-images/project-app-screenshot.png"*/}
+            {/*      width={2432}*/}
+            {/*      height={1442}*/}
+            {/*      className="rounded-md shadow-2xl ring-1 ring-gray-900/10"*/}
+            {/*    />*/}
+            {/*  </div>*/}
+            {/*</div>*/}
           </div>
+        </div>
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+        >
           <div
-            aria-hidden="true"
-            className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-          >
-            <div
-              style={{
-                clipPath:
-                  'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-              }}
-              className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-            />
-          </div>
+            style={{
+              clipPath:
+                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+            }}
+            className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+          />
         </div>
+      </div>
 
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <dl className="mx-auto grid max-w-2xl grid-cols-1 gap-x-6 gap-y-10 text-base leading-7 text-gray-600 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-x-8 lg:gap-y-16">
-            {features.map((feature) => (
-              <div key={feature.name} className="relative pl-9">
-                <dt className="inline font-semibold text-gray-900">
-                  <feature.icon aria-hidden="true" className="absolute left-1 top-1 h-5 w-5 text-indigo-600" />
-                  {feature.name}
-                </dt>{' '}
-                <dd className="inline">{feature.description}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <dl className="mx-auto grid max-w-2xl grid-cols-1 gap-x-6 gap-y-10 text-base leading-7 text-gray-600 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-x-8 lg:gap-y-16">
+          {features.map((feature) => (
+            <div key={feature.name} className="relative pl-9">
+              <dt className="inline font-semibold text-gray-900">
+                <feature.icon aria-hidden="true" className="absolute left-1 top-1 h-5 w-5 text-indigo-600" />
+                {feature.name}
+              </dt>{' '}
+              <dd className="inline">{feature.description}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
 
       <div className="bg-white px-6 py-32 lg:px-8" id="about">
@@ -298,6 +265,6 @@ export default function Homepage() {
           </p>
         </div>
       </footer>
-    </main>
+    </>
   );
 }
