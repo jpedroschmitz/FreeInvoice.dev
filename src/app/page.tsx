@@ -135,9 +135,9 @@ export default function Homepage() {
           </h3>
           <div className="mt-10 max-w-2xl">
             <p>
-              Whether you&#39;re a freelance designer, consultant, or running a small business, our platform adapts to
-              your needs. Add your company details, customize payment terms, and maintain a professional image with your
-              clients - all without signing up or paying a cent.
+              Whether you&#39;re a freelance designer, developer, consultant, or running a small business, our platform
+              adapts to your needs. Add your company details, customize payment terms, and maintain a professional image
+              with your clients - all without signing up or paying a cent.
             </p>
             <ul role="list" className="mt-8 max-w-xl space-y-8 text-gray-600">
               <li className="flex gap-x-3">
