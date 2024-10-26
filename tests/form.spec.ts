@@ -15,7 +15,7 @@ const validInvoiceData = {
 
 test.describe('Invoice Generation', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/app');
   });
 
   test('should generate a PDF with valid data', async ({ page }) => {

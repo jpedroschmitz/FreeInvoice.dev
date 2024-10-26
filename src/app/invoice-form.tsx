@@ -265,9 +265,13 @@ export function InvoiceForm() {
         </Field>
       </Fieldset>
 
-      <Button type="submit" className="mt-10" disabled={isGenerating}>
+      <button
+        type="submit"
+        className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-10"
+        disabled={isGenerating}
+      >
         Download PDF
-      </Button>
+      </button>
     </form>
   );
 }

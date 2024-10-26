@@ -23,6 +23,7 @@ export const metadata: Metadata = {
     title: pageTitle,
     description: pageDescription,
     type: 'website',
+    siteName: 'FreeInvoice.dev',
     url: '/',
   },
   twitter: {
@@ -34,6 +35,16 @@ export const metadata: Metadata = {
       'google-adsense-account': 'ca-pub-3117643386114963',
     },
   },
+  keywords: [
+    'free invoice generator',
+    'online invoice maker',
+    'professional invoice template',
+    'VAT invoice generator',
+    'PDF invoice creator',
+    'business invoice generator',
+    'free billing software',
+    'invoice generator no sign up',
+  ],
 };
 
 declare global {
