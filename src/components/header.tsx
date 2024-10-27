@@ -3,7 +3,8 @@
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import { XMarkIcon } from '@heroicons/react/24/solid';
-import { useState } from 'react';
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 import { Link } from '@/lib/ui/link';
 
@@ -14,7 +15,12 @@ const navigation = [
 ];
 
 export function Header() {
+  const params = useParams();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [params]);
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
