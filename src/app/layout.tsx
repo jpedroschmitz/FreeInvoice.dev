@@ -4,6 +4,7 @@ import { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 
 import { Header } from '@/components/header';
+import { isProd } from '@/utils/isProd';
 
 export const viewport: Viewport = {
   themeColor: '#f4f4f5',
@@ -62,7 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
       </body>
-      {process.env.NODE_ENV === 'production' && process.env.VERCEL_ENV === 'production' && (
+      {isProd && (
         <>
           <Script
             defer

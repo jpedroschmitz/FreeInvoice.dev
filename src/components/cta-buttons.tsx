@@ -8,11 +8,7 @@ export function CTAButtons() {
       <Link
         href="/app"
         onClick={() => {
-          if (
-            typeof window.plausible !== 'undefined' &&
-            process.env.NODE_ENV === 'production' &&
-            process.env.CI !== 'true'
-          ) {
+          if (typeof window.plausible !== 'undefined') {
             window.plausible('Create_Invoice_Click', {
               callback: () => {
                 console.log('Plausible event sent: Sample_Invoice_Test');
@@ -27,11 +23,7 @@ export function CTAButtons() {
       <Link
         href="/invoice-example.pdf"
         onClick={() => {
-          if (
-            typeof window.plausible !== 'undefined' &&
-            process.env.NODE_ENV === 'production' &&
-            process.env.CI !== 'true'
-          ) {
+          if (typeof window.plausible !== 'undefined') {
             window.plausible('Sample_Invoice_Test', {
               callback: () => {
                 console.log('Plausible event sent: Sample_Invoice_Test');

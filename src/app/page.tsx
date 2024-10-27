@@ -258,8 +258,8 @@ export default function Homepage() {
       </div>
 
       <footer className="bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-12 text-center lg:px-8">
-          <p className="mt-8 text-center text-sm/6 text-gray-600 md:order-1 md:mt-0">
+        <div className="mx-auto max-w-7xl px-6 pb-12 text-center lg:px-8">
+          <p className="text-center text-sm/6 text-gray-600 md:order-1">
             &copy; {new Date().getFullYear()} Created with ❤️ by{' '}
             <Link href="https://joaopedro.dev">João Pedro Schmitz</Link>
           </p>

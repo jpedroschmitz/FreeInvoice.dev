@@ -3,18 +3,25 @@
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import { XMarkIcon } from '@heroicons/react/24/solid';
-import { useState } from 'react';
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 import { Link } from '@/lib/ui/link';
 
 const navigation = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/#about' },
+  { name: 'Feedback', href: 'https://tally.so/r/wQJqag' },
   { name: 'Privacy', href: '/privacy' },
 ];
 
 export function Header() {
+  const params = useParams();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [params]);
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
@@ -34,7 +41,12 @@ export function Header() {
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
           {navigation.map((item) => (
-            <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900">
+            <a
+              key={item.name}
+              href={item.href}
+              target={item.href.startsWith('http') ? '_blank' : undefined}
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
               {item.name}
             </a>
           ))}
@@ -63,6 +75,7 @@ export function Header() {
                   <Link
                     key={item.name}
                     href={item.href}
+                    target={item.href.startsWith('http') ? '_blank' : undefined}
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     {item.name}
