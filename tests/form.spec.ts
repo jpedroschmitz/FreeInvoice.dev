@@ -14,8 +14,41 @@ const validInvoiceData = {
 };
 
 test.describe('Invoice Generation', () => {
-  test.beforeEach(async ({ page }) => {
+  test.beforeAll(async ({ browser }) => {
+    // Create a new context with storage state
+    const context = await browser.newContext({
+      storageState: {
+        cookies: [],
+        origins: [
+          {
+            origin: 'http://localhost:3000', // Adjust this URL based on your test environment
+            localStorage: [
+              {
+                name: 'plausible_ignore',
+                value: 'true',
+              },
+            ],
+          },
+        ],
+      },
+    });
+
+    // Close the context when done
+    await context.close();
+  });
+
+  test.beforeEach(async ({ page, context }) => {
+    // Set up localStorage before navigating
+    await context.addInitScript(() => {
+      window.localStorage.setItem('plausible_ignore', 'true');
+    });
+
+    // Navigate to the page after localStorage is set
     await page.goto('/app');
+
+    // Verify localStorage was set correctly
+    const plausibleIgnore = await page.evaluate(() => window.localStorage.getItem('plausible_ignore'));
+    console.log('plausible_ignore value:', plausibleIgnore);
   });
 
   test('should generate a PDF with valid data', async ({ page }) => {
