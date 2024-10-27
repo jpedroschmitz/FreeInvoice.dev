@@ -11,6 +11,7 @@ import { Link } from '@/lib/ui/link';
 const navigation = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/#about' },
+  { name: 'Feedback', href: 'https://tally.so/r/wQJqag' },
   { name: 'Privacy', href: '/privacy' },
 ];
 
@@ -40,7 +41,12 @@ export function Header() {
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
           {navigation.map((item) => (
-            <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900">
+            <a
+              key={item.name}
+              href={item.href}
+              target={item.href.startsWith('http') ? '_blank' : undefined}
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
               {item.name}
             </a>
           ))}
@@ -69,6 +75,7 @@ export function Header() {
                   <Link
                     key={item.name}
                     href={item.href}
+                    target={item.href.startsWith('http') ? '_blank' : undefined}
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     {item.name}
