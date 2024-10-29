@@ -16,6 +16,14 @@ export const metadata: Metadata = {
     description: pageDescription,
     type: 'website',
     url: '/app',
+    images: [
+      {
+        alt: 'FreeInvoice.dev',
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 640,
+      },
+    ],
   },
   twitter: {
     title: pageTitle,

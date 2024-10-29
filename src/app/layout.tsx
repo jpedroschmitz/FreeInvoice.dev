@@ -26,6 +26,14 @@ export const metadata: Metadata = {
     type: 'website',
     siteName: 'FreeInvoice.dev',
     url: '/',
+    images: [
+      {
+        alt: 'FreeInvoice.dev',
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 640,
+      },
+    ],
   },
   twitter: {
     title: pageTitle,
