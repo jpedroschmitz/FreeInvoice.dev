@@ -8,7 +8,7 @@ import {
   UserPlusIcon,
 } from '@heroicons/react/20/solid';
 
-import { CTAButtons } from '@/components/cta-buttons';
+import { CreateInvoiceNow, CTAButtons } from '@/components/cta-buttons';
 import { Link } from '@/lib/ui/link';
 
 const features = [
@@ -246,21 +246,7 @@ export default function Homepage() {
               straightforward invoicing that works.
             </p>
             <div className="mt-8">
-              <a
-                href="/app"
-                // onClick={() => {
-                //   if (typeof window.plausible !== 'undefined') {
-                //     window.plausible('Create_Invoice_Click_Footer', {
-                //       callback: () => {
-                //         console.log('Plausible event sent: Create_Invoice_Click_Footer');
-                //       },
-                //     });
-                //   }
-                // }}
-                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Create Invoice Now
-              </a>
+              <CreateInvoiceNow />
             </div>
           </div>
         </div>
