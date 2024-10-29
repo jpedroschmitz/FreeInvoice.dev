@@ -11,7 +11,7 @@ export function CTAButtons() {
           if (typeof window.plausible !== 'undefined') {
             window.plausible('Create_Invoice_Click', {
               callback: () => {
-                console.log('Plausible event sent: Sample_Invoice_Test');
+                console.log('Plausible event sent: Create_Invoice_Click');
               },
             });
           }
