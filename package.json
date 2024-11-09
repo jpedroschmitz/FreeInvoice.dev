@@ -1,15 +1,10 @@
 {
-  "name": "typescript-nextjs-starter",
-  "description": "A TypeScript starter for Next.js that includes all you need to build amazing projects",
+  "name": "FreeInvoice.dev",
+  "description": "Professional invoices in seconds. Completely free, user-friendly, and secure with client-side processing — your data stays with you.",
   "version": "1.0.0",
   "private": true,
-  "author": "João Pedro Schmitz <hey@joaopedro.dev> (@jpedroschmitz)",
+  "author": "João Pedro Schmitz (@jpedroschmitz)",
   "license": "MIT",
-  "keywords": [
-    "nextjs",
-    "starter",
-    "typescript"
-  ],
   "scripts": {
     "dev": "next",
     "build": "next build",

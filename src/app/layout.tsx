@@ -4,7 +4,7 @@ import { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 
 import { Header } from '@/components/header';
-import { isProd } from '@/utils/isProd';
+import { isProd } from '@/lib/isProd';
 
 export const viewport: Viewport = {
   themeColor: '#f4f4f5',

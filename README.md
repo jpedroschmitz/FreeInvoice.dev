@@ -1,128 +1,95 @@
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/26466516/141659551-d7ba5630-7200-46fe-863b-87818dae970a.png" alt="Next.js TypeScript Starter">
-</p>
+# FreeInvoice.dev
 
-<br />
+Create unlimited professional invoices without signing up or paying anything. Your data stays in your browser, making it completely secure and private. Start invoicing immediately with our free, simple tool.
 
-<div align="center"><strong>Non-opinionated TypeScript starter for Next.js</strong></div>
-<div align="center">Highly scalable foundation with the best DX. All the tools you need to build your next project.</div>
+[View Demo](https://freeinvoice.dev) · [Report Bug](https://github.com/jpedroschmitz/freeinvoice.dev/issues) · [Request Feature](https://github.com/jpedroschmitz/freeinvoice.dev/issues)
 
-<br />
+## 🌟 Features
 
-<div align="center">
-  <img src="https://img.shields.io/static/v1?label=PRs&message=welcome&style=flat-square&color=5e17eb&labelColor=000000" alt="PRs welcome!" />
+- **Always Free** - No hidden costs, no premium features, no subscription fees
+- **Private & Secure** - Client-side processing, no data storage
+- **No Registration** - Start creating invoices immediately
+- **Instant PDF Export** - Download professional PDFs with one click
+- **Global Currencies** - Support for USD, EUR, GBP, AUD, CAD, and more
+- **VAT Support** - Include VAT IDs and tax information
 
-  <img alt="License" src="https://img.shields.io/github/license/jpedroschmitz/typescript-nextjs-starter?style=flat-square&color=5e17eb&labelColor=000000">
+## 🚀 Tech Stack
 
-  <a href="https://twitter.com/intent/follow?screen_name=jpedroschmitz">
-    <img src="https://img.shields.io/twitter/follow/jpedroschmitz?style=flat-square&color=5e17eb&labelColor=000000" alt="Follow @jpedroschmitz" />
-  </a>
-</div>
+- [Next.js](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [@react-pdf/renderer](https://react-pdf.org/)
+- [React Hook Form](https://react-hook-form.com/)
+- [Zod](https://github.com/colinhacks/zod)
+- [@headlessui/react](https://headlessui.com/)
+- [@heroicons/react](https://heroicons.com/)
 
-<div align="center">
-  <sub>Created by <a href="https://twitter.com/jpedroschmitz">João Pedro</a> with the help of many <a href="https://github.com/jpedroschmitz/typescript-nextjs-starter/graphs/contributors">wonderful contributors</a>.</sub>
-</div>
-
-<br />
-
-## Features
-
-- ⚡️ Next.js 14 (App Router)
-- ⚛️ React 18
-- ⛑ TypeScript
-- 📏 ESLint — To find and fix problems in your code
-- 💖 Prettier — Code Formatter for consistent style
-- 🐶 Husky — For running scripts before committing
-- 🚓 Commitlint — To make sure your commit messages follow the convention
-- 🖌 Renovate — To keep your dependencies up to date
-- 🚫 lint-staged — Run ESLint and Prettier against staged Git files
-- 👷 PR Workflow — Run Type Check & Linters on Pull Requests
-- ⚙️ EditorConfig - Consistent coding styles across editors and IDEs
-- 🗂 Path Mapping — Import components or images using the `@` prefix
-
-## Quick Start
-
-The best way to start with this template is using [Create Next App](https://nextjs.org/docs/api-reference/create-next-app).
+## 📁 Directory Structure
 
 ```
-# yarn
-yarn create next-app -e https://github.com/jpedroschmitz/typescript-nextjs-starter
-# npm
-npx create-next-app -e https://github.com/jpedroschmitz/typescript-nextjs-starter
-# pnpm
-pnpm create next-app -e https://github.com/jpedroschmitz/typescript-nextjs-starter
+FreeInvoice.dev/
+├── .github/              # GitHub workflows
+├── .husky/               # Husky hooks
+├── public/               # Static assets
+├── src/                  # Source code directory
+│   ├── app/               # Next.js app
+│   ├── components/        # Reusable components
+│   ├── lib/               # Utility functions and shared UI code
+└── tests/                # E2E tests
 ```
 
-### Development
+## 🛠️ Getting Started
 
-To start the project locally, run:
-
-```bash
-pnpm dev
-```
-
-Open `http://localhost:3000` with your browser to see the result.
-
-## Testimonials
-
-> [**“This starter is by far the best TypeScript starter for Next.js. Feature packed but un-opinionated at the same time!”**](https://github.com/jpedroschmitz/typescript-nextjs-starter/issues/87#issue-789642190)<br>
-> — Arafat Zahan
-
-> [**“I can really recommend the Next.js Typescript Starter repo as a solid foundation for your future Next.js projects.”**](https://corfitz.medium.com/create-a-custom-create-next-project-command-2a6b35a1c8e6)<br>
-> — Corfitz
-
-> [**“Brilliant work!”**](https://github.com/jpedroschmitz/typescript-nextjs-starter/issues/87#issuecomment-769314539)<br>
-> — Soham Dasgupta
-
-## Showcase
-
-List of websites that started off with Next.js TypeScript Starter:
-
-- [hygraph.com](https://hygraph.com)
-- [rocketseat.com.br](https://www.rocketseat.com.br)
-- [unfork.vercel.app](https://unfork.vercel.app)
-- [cryptools.dev](https://cryptools.dev)
-- [Add yours](https://github.com/jpedroschmitz/typescript-nextjs-starter/edit/main/README.md)
-
-## Documentation
-
-### Requirements
+### Prerequisites
 
 - Node.js >= 20
 - pnpm 9
 
-### Directory Structure
+### Installation
 
-- [`.github`](.github) — GitHub configuration including the CI workflow.<br>
-- [`.husky`](.husky) — Husky configuration and hooks.<br>
-- [`public`](./public) — Static assets such as robots.txt, images, and favicon.<br>
-- [`src`](./src) — Application source code, including pages, components, styles.
-
-### Scripts
-
-- `pnpm dev` — Starts the application in development mode at `http://localhost:3000`.
-- `pnpm build` — Creates an optimized production build of your application.
-- `pnpm start` — Starts the application in production mode.
-- `pnpm type-check` — Validate code using TypeScript compiler.
-- `pnpm lint` — Runs ESLint for all files in the `src` directory.
-- `pnpm format` — Runs Prettier for all files in the `src` directory.
-
-### Path Mapping
-
-TypeScript are pre-configured with custom path mappings. To import components or files, use the `@` prefix.
-
-```tsx
-import { Button } from '@/components/Button';
-// To import images or other files from the public folder
-import avatar from '@/public/avatar.png';
+1. Clone the repository
+```bash
+git clone https://github.com/jpedroschmitz/FreeInvoice.dev.git
 ```
 
-### Switch to Yarn/npm
+2. Install dependencies
+```bash
+pnpm install
+```
 
-This starter uses pnpm by default, but this choice is yours. If you'd like to switch to Yarn/npm, delete the `pnpm-lock.yaml` file, install the dependencies with Yarn/npm, change the CI workflow, and Husky Git hooks to use Yarn/npm commands.
+3. Start the development server
+```bash
+pnpm dev
+```
 
-> **Note:** If you use Yarn, make sure to follow these steps from the [Husky documentation](https://typicode.github.io/husky/troubleshoot.html#yarn-on-windows) so that Git hooks do not fail with Yarn on Windows.
+4. Open [http://localhost:3000](http://localhost:3000)
 
-## License
+## 📜 Available Scripts
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for more information.
+- `pnpm dev` - Start the development server
+- `pnpm build` - Create an optimized production build
+- `pnpm build:analyze` - Build with bundle analysis
+- `pnpm start` - Start the production server
+- `pnpm test:e2e` - Run end-to-end tests with Playwright
+- `pnpm test:e2e:playwright` - Run Playwright tests with UI
+- `pnpm type-check` - Run TypeScript compiler check
+- `pnpm lint` - Run ESLint on source files
+- `pnpm format` - Format source files with Prettier
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+Made with ❤️ by [João Pedro](https://github.com/jpedroschmitz)
