@@ -2,7 +2,7 @@
 
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
-import { XMarkIcon } from '@heroicons/react/24/solid';
+import { ArrowUpRightIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -11,8 +11,9 @@ import { Link } from '@/lib/ui/link';
 const navigation = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/#about' },
-  { name: 'Feedback', href: 'https://tally.so/r/wQJqag' },
   { name: 'Privacy', href: '/privacy' },
+  { name: 'Feedback', href: 'https://tally.so/r/wQJqag' },
+  { name: 'GitHub', href: 'https://github.com/jpedroschmitz/FreeInvoice.dev' },
 ];
 
 export function Header() {
@@ -45,9 +46,12 @@ export function Header() {
               key={item.name}
               href={item.href}
               target={item.href.startsWith('http') ? '_blank' : undefined}
-              className="text-sm font-semibold leading-6 text-gray-900"
+              className="text-sm font-semibold leading-6 text-gray-900 flex items-center gap-2"
             >
               {item.name}
+              {item.href.startsWith('http') ? (
+                <ArrowUpRightIcon aria-hidden="true" className="size-3 shrink-0" />
+              ) : null}
             </a>
           ))}
         </div>
@@ -76,9 +80,12 @@ export function Header() {
                     key={item.name}
                     href={item.href}
                     target={item.href.startsWith('http') ? '_blank' : undefined}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className="-mx-3 rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 flex items-center gap-2"
                   >
                     {item.name}
+                    {item.href.startsWith('http') ? (
+                      <ArrowUpRightIcon aria-hidden="true" className="size-4 shrink-0" />
+                    ) : null}
                   </Link>
                 ))}
               </div>

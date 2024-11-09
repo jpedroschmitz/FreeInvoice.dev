@@ -76,7 +76,8 @@ export default function Privacy() {
         <p className="mt-4">
           FreeInvoice.dev is designed with privacy at its core. All invoice generation and data processing happen
           entirely in your browser. We never store, transmit, or have access to any of your business information or
-          invoice data.
+          invoice data. The entire source code is open-source and available on GitHub at{' '}
+          <Link href="https://github.com/jpedroschmitz/FreeInvoice.dev">jpedroschmitz/FreeInvoice.dev</Link>.
         </p>
 
         <ul className="mt-4 list-disc pl-6 space-y-2">
@@ -141,7 +142,7 @@ export default function Privacy() {
           Privacy Policy on this page and updating the effective date.
         </p>
 
-        <p className="mt-12 text-sm text-gray-500">Last updated: 26 October 2024</p>
+        <p className="mt-12 text-sm text-gray-500">Last updated: 09 November 2024</p>
       </div>
     </div>
   );
