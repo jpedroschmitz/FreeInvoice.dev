@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import { Link } from '@/lib/ui/link';
 
 const pageTitle = `Privacy Policy - FreeInvoice.dev | Privacy-First Invoice Generator`;
-const pageDescription = `Our privacy-first approach means your data stays in your browser. No cookies, no tracking, no data collection. Transparent analytics with Plausible.io.`;
+const pageDescription = `Our privacy-first approach means your data stays in your browser. No cookies, no tracking, no data collection. Transparent analytics with Posthog`;
 
 export const metadata: Metadata = {
   title: pageTitle,
@@ -90,9 +90,9 @@ export default function Privacy() {
 
         <h2 className="mt-12 text-2xl font-semibold text-gray-900">Analytics</h2>
         <p className="mt-4">
-          We use <Link href="https://plausible.io">Plausible Analytics</Link>, a privacy-focused analytics service, to
-          collect anonymous usage metrics. Plausible is GDPR, CCPA, and PECR compliant, doesn&#39;t use cookies, and
-          doesn&#39;t collect any personal information.
+          We use <Link href="https://posthog.com">Posthog</Link>, a privacy-focused analytics service, to collect
+          anonymous usage metrics. Posthog is GDPR, CCPA, and PECR compliant, doesn&#39;t use cookies, and doesn&#39;t
+          collect any personal information.
         </p>
 
         <p className="mt-4">We track the following anonymous metrics:</p>
@@ -105,16 +105,12 @@ export default function Privacy() {
           </li>
         </ul>
 
-        <p className="mt-4">
-          This information helps us understand how our service is used and how we can improve it. Our analytics are
-          publicly available at{' '}
-          <Link href="https://plausible.io/freeinvoice.dev">https://plausible.io/freeinvoice.dev</Link>
-        </p>
+        <p className="mt-4">This information helps us understand how our service is used and how we can improve it.</p>
 
         <h2 className="mt-12 text-2xl font-semibold text-gray-900">Data Processing Location</h2>
         <p className="mt-4">
           All invoice generation and PDF creation happen locally in your web browser. Your data never leaves your
-          device. Our analytics service, Plausible, is hosted in the European Union and complies with EU data protection
+          device. Our analytics service, Posthog, is hosted in the United States and complies with data protection
           regulations.
         </p>
 
