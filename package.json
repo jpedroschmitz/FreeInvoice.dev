@@ -35,7 +35,7 @@
     "currency.js": "2.0.4",
     "date-fns": "4.1.0",
     "framer-motion": "11.11.7",
-    "next": "14.2.8",
+    "next": "14.2.35",
     "postcss": "8.4.47",
     "posthog-js": "1.225.0",
     "react": "18.3.1",
