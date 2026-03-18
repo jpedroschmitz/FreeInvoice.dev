@@ -81,17 +81,6 @@ export default function Homepage() {
                 <CTAButtons />
               </div>
             </div>
-            {/*<div className="mt-16 flow-root sm:mt-24">*/}
-            {/*  <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">*/}
-            {/*    <img*/}
-            {/*      alt="App screenshot"*/}
-            {/*      src="https://tailwindui.com/plus/img/component-images/project-app-screenshot.png"*/}
-            {/*      width={2432}*/}
-            {/*      height={1442}*/}
-            {/*      className="rounded-md shadow-2xl ring-1 ring-gray-900/10"*/}
-            {/*    />*/}
-            {/*  </div>*/}
-            {/*</div>*/}
           </div>
         </div>
         <div
@@ -162,51 +151,7 @@ export default function Homepage() {
                 </span>
               </li>
             </ul>
-            {/*<p className="mt-8">*/}
-            {/*  Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id blandit molestie auctor*/}
-            {/*  fermentum dignissim. Lacus diam tincidunt ac cursus in vel. Mauris varius vulputate et ultrices hac*/}
-            {/*  adipiscing egestas. Iaculis convallis ac tempor et ut. Ac lorem vel integer orci.*/}
-            {/*</p>*/}
-            {/*<h2 className="mt-16 text-pretty text-3xl font-semibold tracking-tight text-gray-900">*/}
-            {/*  From beginner to expert in 3 hours*/}
-            {/*</h2>*/}
-            {/*<p className="mt-6">*/}
-            {/*  Id orci tellus laoreet id ac. Dolor, aenean leo, ac etiam consequat in. Convallis arcu ipsum urna nibh.*/}
-            {/*  Pharetra, euismod vitae interdum mauris enim, consequat vulputate nibh. Maecenas pellentesque id sed*/}
-            {/*  tellus mauris, ultrices mauris. Tincidunt enim cursus ridiculus mi. Pellentesque nam sed nullam sed diam*/}
-            {/*  turpis ipsum eu a sed convallis diam.*/}
-            {/*</p>*/}
-            {/*<figure className="mt-10 border-l border-indigo-600 pl-9">*/}
-            {/*  <blockquote className="font-semibold text-gray-900">*/}
-            {/*    <p>*/}
-            {/*      &#34;Finally, a simple invoice generator that doesn&#39;t require signing up for yet another service.*/}
-            {/*      Perfect for my freelance work. The fact that it&#39;s completely free and processes everything in my*/}
-            {/*      browser gives me peace of mind.&#34;*/}
-            {/*    </p>*/}
-            {/*  </blockquote>*/}
-            {/*  <figcaption className="mt-6 flex gap-x-4">*/}
-            {/*    <div className="text-sm leading-6">*/}
-            {/*      <strong className="font-semibold text-gray-900">David Chen</strong> – Independent Developer*/}
-            {/*    </div>*/}
-            {/*  </figcaption>*/}
-            {/*</figure>*/}
-            {/*<p className="mt-10">*/}
-            {/*  Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet*/}
-            {/*  vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque*/}
-            {/*  erat velit.*/}
-            {/*</p>*/}
           </div>
-          {/*<figure className="mt-16">*/}
-          {/*  <img*/}
-          {/*    alt=""*/}
-          {/*    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=facearea&w=1310&h=873&q=80&facepad=3"*/}
-          {/*    className="aspect-video rounded-xl bg-gray-50 object-cover"*/}
-          {/*  />*/}
-          {/*  <figcaption className="mt-4 flex gap-x-2 text-sm leading-6 text-gray-500">*/}
-          {/*    <InformationCircleIcon aria-hidden="true" className="mt-0.5 h-5 w-5 flex-none text-gray-300" />*/}
-          {/*    Faucibus commodo massa rhoncus, volutpat.*/}
-          {/*  </figcaption>*/}
-          {/*</figure>*/}
           <div className="mt-16 max-w-2xl">
             <h2 className="text-pretty text-3xl font-semibold tracking-tight text-gray-900">
               Frequently Asked Questions

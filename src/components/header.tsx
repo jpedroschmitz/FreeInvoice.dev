@@ -12,7 +12,6 @@ const navigation = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/#about' },
   { name: 'Privacy', href: '/privacy' },
-  { name: 'Feedback', href: 'https://tally.so/r/wQJqag' },
   { name: 'GitHub', href: 'https://github.com/jpedroschmitz/FreeInvoice.dev' },
 ];
 
