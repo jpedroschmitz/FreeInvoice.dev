@@ -4,9 +4,10 @@ import { PlusIcon, TrashIcon } from '@heroicons/react/16/solid';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import CurrencyInput from 'react-currency-input-field';
-import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 
 import { InvoiceFormValues, invoiceSchema } from '@/app/validation';
+import { useFormStorage } from '@/hooks/useFormStorage';
 import { Button } from '@/lib/ui/button';
 import { Divider } from '@/lib/ui/divider';
 import { Description, ErrorMessage, Field, FieldGroup, Fieldset, Label, Legend } from '@/lib/ui/fieldset';
@@ -24,21 +25,34 @@ const generateInvoiceId = () => {
 export function InvoiceForm() {
   const [isGenerating, setIsGenerating] = useState(false);
 
+  const defaultValues: InvoiceFormValues = {
+    company_name: '',
+    company_address: '',
+    bill_to: '',
+    bill_to_address: '',
+    currency: 'USD',
+    due_date: '',
+    vat_id: '',
+    services: [{ description: '', quantity: '1', amount: '' }],
+    notes: '',
+  };
+
   const {
     register,
     control,
     handleSubmit,
     watch,
+    getValues,
+    reset,
     formState: { errors },
   } = useForm<InvoiceFormValues>({
     resolver: zodResolver(invoiceSchema),
-    defaultValues: {
-      currency: 'USD',
-      services: [{ description: '', quantity: '1', amount: '' }],
-    },
+    defaultValues,
   });
 
   const currency = watch('currency');
+
+  const { hasSavedData, handleSave, handleLoad, handleClear } = useFormStorage(getValues, reset, defaultValues);
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -172,18 +186,26 @@ export function InvoiceForm() {
             </Field>
             <Field className="md:w-64">
               <Label htmlFor={`services.${index}.amount`}>Amount</Label>
-              <CurrencyInput
-                key={currency}
-                id={`services.${index}.amount`}
-                customInput={Input}
-                placeholder="e.g., 1500.00"
-                allowNegativeValue={false}
-                allowDecimals
-                intlConfig={{
-                  locale: 'en-US',
-                  currency: currency || 'USD',
-                }}
-                {...register(`services.${index}.amount`)}
+              <Controller
+                control={control}
+                name={`services.${index}.amount`}
+                render={({ field: { onChange, value, name } }) => (
+                  <CurrencyInput
+                    key={currency}
+                    id={`services.${index}.amount`}
+                    name={name}
+                    customInput={Input}
+                    placeholder="e.g., 1500.00"
+                    allowNegativeValue={false}
+                    allowDecimals
+                    intlConfig={{
+                      locale: 'en-US',
+                      currency: currency || 'USD',
+                    }}
+                    value={value}
+                    onValueChange={(val) => onChange(val ?? '')}
+                  />
+                )}
               />
               {errors.services?.[index]?.amount && (
                 <ErrorMessage>{errors.services[index]?.amount?.message}</ErrorMessage>
@@ -261,13 +283,24 @@ export function InvoiceForm() {
         </Field>
       </Fieldset>
 
-      <button
-        type="submit"
-        className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-10"
-        disabled={isGenerating}
-      >
-        Download PDF
-      </button>
+      <div className="flex flex-wrap gap-4 mt-10">
+        <Button type="submit" color="indigo" disabled={isGenerating}>
+          Download PDF
+        </Button>
+        <Button type="button" color="emerald" onClick={handleSave}>
+          Save
+        </Button>
+        {hasSavedData && (
+          <>
+            <Button type="button" color="zinc" onClick={handleLoad}>
+              Load Saved Data
+            </Button>
+            <Button type="button" color="red" onClick={handleClear}>
+              Clear Saved Data
+            </Button>
+          </>
+        )}
+      </div>
     </form>
   );
 }
