@@ -42,15 +42,12 @@ FreeInvoice.dev/
 
 ### Prerequisites
 
-- Node.js >= 20
-- pnpm 9
+- Node.js >= 24
+- pnpm 10
 
 ### Installation
 
 1. Clone the repository
-```bash
-git clone https://github.com/jpedroschmitz/FreeInvoice.dev.git
-```
 
 2. Install dependencies
 ```bash

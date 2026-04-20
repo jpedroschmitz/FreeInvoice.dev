@@ -1,7 +1,13 @@
+import { createFileRoute } from '@tanstack/react-router';
+
 import { HeroCTAs } from '@/components/cta-buttons';
 import { Footer } from '@/components/footer';
 
-export default function Homepage() {
+export const Route = createFileRoute('/')({
+  component: Homepage,
+});
+
+function Homepage() {
   return (
     <main className="flex flex-1 flex-col">
       <section className="flex flex-1 flex-col justify-center">

@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@import '@fontsource-variable/recursive/full.css';
+
+:root {
+  --font-recursive: 'Recursive Variable', 'Recursive', ui-sans-serif, system-ui, sans-serif;
+}
+
 @layer base {
   *,
   *:before,
@@ -13,7 +19,7 @@
     box-sizing: border-box;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
-    font-family: var(--font-recursive), ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-recursive);
     font-variation-settings:
       'MONO' 0,
       'CASL' 0,

@@ -1,5 +1,3 @@
-'use client';
-
 import { Dialog, DialogPanel } from '@headlessui/react';
 
 import { ArrowRight } from '@/lib/ui/icons';

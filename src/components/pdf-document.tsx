@@ -4,7 +4,7 @@ import currency from 'currency.js';
 import { format, parseISO } from 'date-fns';
 import { createTw } from 'react-pdf-tailwind';
 
-import { InvoiceFormValues } from '@/app/validation';
+import { InvoiceFormValues } from '@/lib/invoice-validation';
 
 const formatCurrency = (amount: number, currency: string) => {
   return new Intl.NumberFormat('en-US', {

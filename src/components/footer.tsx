@@ -7,7 +7,7 @@ export function Footer() {
         <ul className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <li>
             <Link
-              href="/privacy"
+              to="/privacy"
               className="-my-1 py-1 transition-colors hover:text-ink-strong focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
             >
               Privacy
@@ -42,12 +42,14 @@ export function Footer() {
         </ul>
         <p>
           Built by{' '}
-          <Link
+          <a
             href="https://joaopedro.dev"
+            target="_blank"
+            rel="noreferrer"
             className="-my-1 py-1 text-ink transition-colors hover:text-ink-strong focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
           >
             João Pedro Schmitz
-          </Link>
+          </a>
         </p>
       </div>
     </footer>

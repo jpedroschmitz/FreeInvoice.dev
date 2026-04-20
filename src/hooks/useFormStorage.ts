@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { UseFormGetValues, UseFormReset, UseFormWatch } from 'react-hook-form';
 
-import { InvoiceFormValues } from '@/app/validation';
+import { InvoiceFormValues } from '@/lib/invoice-validation';
 
 const STORAGE_KEY = '@freeinvoice/draft';
 const SAVE_DEBOUNCE_MS = 500;

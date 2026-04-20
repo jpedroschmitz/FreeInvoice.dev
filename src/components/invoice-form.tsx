@@ -1,11 +1,9 @@
-'use client';
-
 import { useState } from 'react';
 import CurrencyInput from 'react-currency-input-field';
 import { Controller, SubmitHandler, useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { InvoiceFormValues, invoiceSchema } from '@/app/validation';
+import { InvoiceFormValues, invoiceSchema } from '@/lib/invoice-validation';
 import { PreviewDrawer } from '@/components/preview-drawer';
 import { useFormStorage, type AutosaveStatus } from '@/hooks/useFormStorage';
 import { ArrowRight, Plus, X } from '@/lib/ui/icons';
@@ -191,7 +189,7 @@ export function InvoiceForm() {
 
   async function generateBlob(data: InvoiceFormValues, invoiceId: string) {
     const { pdf } = await import('@react-pdf/renderer');
-    const { PdfDocument } = await import('@/app/PdfDocument');
+    const { PdfDocument } = await import('@/components/pdf-document');
     return await pdf(<PdfDocument invoice={{ ...data, invoice_id: invoiceId }} />).toBlob();
   }
 

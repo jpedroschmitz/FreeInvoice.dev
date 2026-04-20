@@ -6,7 +6,7 @@ export function Header() {
     <header className="border-b border-border-subtle">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 lg:px-10">
         <Link
-          href="/"
+          to="/"
           className="-my-1 py-1 font-display text-base tracking-wordmark text-ink-strong transition-colors hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
         >
           FreeInvoice.dev

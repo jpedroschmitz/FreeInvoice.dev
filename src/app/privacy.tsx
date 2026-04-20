@@ -1,35 +1,30 @@
-import { Metadata } from 'next';
+import { createFileRoute } from '@tanstack/react-router';
 
 import { Footer } from '@/components/footer';
 
 const pageTitle = `Privacy Policy — FreeInvoice.dev`;
 const pageDescription = `FreeInvoice.dev runs entirely in your browser. No cookies, no accounts, no data collection. Privacy-first by design.`;
 
-export const metadata: Metadata = {
-  title: pageTitle,
-  description: pageDescription,
-  alternates: {
-    canonical: '/privacy',
-  },
-  openGraph: {
-    title: pageTitle,
-    description: pageDescription,
-    type: 'website',
-    url: '/privacy',
-    images: [
-      {
-        alt: 'FreeInvoice.dev',
-        url: '/og-image.jpg',
-        width: 1200,
-        height: 640,
-      },
+export const Route = createFileRoute('/privacy')({
+  component: Privacy,
+  head: () => ({
+    meta: [
+      { title: pageTitle },
+      { name: 'description', content: pageDescription },
+      { property: 'og:title', content: pageTitle },
+      { property: 'og:description', content: pageDescription },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:url', content: 'https://freeinvoice.dev/privacy' },
+      { property: 'og:image', content: 'https://freeinvoice.dev/og-image.jpg' },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '640' },
+      { property: 'og:image:alt', content: 'FreeInvoice.dev' },
+      { name: 'twitter:title', content: pageTitle },
+      { name: 'twitter:description', content: pageDescription },
     ],
-  },
-  twitter: {
-    title: pageTitle,
-    description: pageDescription,
-  },
-};
+    links: [{ rel: 'canonical', href: 'https://freeinvoice.dev/privacy' }],
+  }),
+});
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return <h2 className="text-xl font-semibold text-ink-strong">{children}</h2>;
@@ -67,7 +62,7 @@ function ExternalLink({ href, children }: { href: string; children: React.ReactN
   );
 }
 
-export default function Privacy() {
+function Privacy() {
   return (
     <main className="flex flex-1 flex-col">
       <article className="flex-1">
