@@ -32,3 +32,41 @@ export function ArrowUpRight({ className }: { className?: string }) {
     </svg>
   );
 }
+
+export function Plus({ className }: { className?: string }) {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className={className}
+    >
+      <path d="M6 2.5v7M2.5 6h7" />
+    </svg>
+  );
+}
+
+export function X({ className }: { className?: string }) {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className={className}
+    >
+      <path d="M3 3l6 6M3 9l6-6" />
+    </svg>
+  );
+}
