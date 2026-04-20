@@ -1,11 +1,34 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@import "tailwindcss";
 @import '@fontsource-variable/recursive/full.css';
 
 :root {
   --font-recursive: 'Recursive Variable', 'Recursive', ui-sans-serif, system-ui, sans-serif;
+}
+
+@theme {
+  --color-paper: oklch(99% 0.003 60);
+  --color-paper-elev: oklch(97% 0.004 60);
+  --color-border-subtle: oklch(92% 0.006 60);
+  --color-hairline: oklch(85% 0.008 60);
+  --color-muted: oklch(45% 0.010 50);
+  --color-ink: oklch(22% 0.012 45);
+  --color-ink-strong: oklch(14% 0.014 40);
+  --color-accent: oklch(50% 0.200 38);
+  --color-accent-press: oklch(44% 0.200 38);
+
+  --font-sans: var(--font-recursive), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-recursive), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-display: var(--font-recursive), ui-sans-serif, system-ui, sans-serif;
+
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+  --text-display: clamp(2.25rem, min(7vw, 9vh), 5rem);
+  --text-display--line-height: 1;
+  --text-display--letter-spacing: -0.02em;
+
+  --tracking-display: -0.02em;
+  --tracking-wordmark: -0.01em;
+  --tracking-caps: 0.04em;
 }
 
 @layer base {

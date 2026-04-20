@@ -8,6 +8,7 @@ const pageDescription = `Build a professional invoice in your browser and export
 
 export const Route = createFileRoute('/app')({
   component: App,
+  ssr: false,
   head: () => ({
     meta: [
       { title: pageTitle },
