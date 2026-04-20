@@ -1,6 +1,7 @@
 import './globals.css';
 
 import { Metadata, Viewport } from 'next';
+import { Recursive } from 'next/font/google';
 import Script from 'next/script';
 
 import { Header } from '@/components/header';
@@ -8,12 +9,19 @@ import { isProd } from '@/lib/isProd';
 
 import type { PostHog } from 'posthog-js';
 
+const recursive = Recursive({
+  subsets: ['latin'],
+  variable: '--font-recursive',
+  display: 'swap',
+  axes: ['CASL', 'CRSV', 'MONO', 'slnt'],
+});
+
 export const viewport: Viewport = {
-  themeColor: '#f4f4f5',
+  themeColor: 'oklch(99% 0.003 60)',
 };
 
-const pageTitle = 'FreeInvoice.dev - Simple and Free Invoice Tool. No sign-up.';
-const pageDescription = `Create professional invoices effortlessly with FreeInvoice.dev. Completely free, user-friendly, and secure with client-side processing — your data stays with you.`;
+const pageTitle = 'FreeInvoice.dev — Free invoice generator. No sign-up.';
+const pageDescription = `Free invoice generator for freelancers and small teams. Client-side — your data never leaves your browser. Instant PDF, no sign-up.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://freeinvoice.dev'),
@@ -66,12 +74,10 @@ declare global {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>
-        <main className="bg-white">
-          <Header />
-          {children}
-        </main>
+    <html lang="en" className={recursive.variable}>
+      <body className="min-h-dvh flex flex-col">
+        <Header />
+        {children}
       </body>
       {isProd && (
         <Script

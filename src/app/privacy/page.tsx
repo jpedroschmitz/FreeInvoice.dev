@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 
 export default function Privacy() {
   return (
-    <div className="relative isolate pt-14">
+    <div className="relative isolate flex-1 pt-14">
       <div
         aria-hidden="true"
         className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
@@ -68,8 +68,8 @@ export default function Privacy() {
 
       <div className="mx-auto max-w-2xl px-6 lg:px-8 mt-10">
         <p>
-          At FreeInvoice.dev, accessible from <Link href="https://freeinvoice.dev">https://freeinvoice.dev</Link>, we
-          take privacy seriously. This Privacy Policy outlines our practices regarding data handling and user privacy.
+          At FreeInvoice.dev, accessible from <Link href="/">https://freeinvoice.dev</Link>, we take privacy seriously.
+          This Privacy Policy outlines our practices regarding data handling and user privacy.
         </p>
 
         <h2 className="mt-12 text-2xl font-semibold text-gray-900">Our Privacy-First Approach</h2>

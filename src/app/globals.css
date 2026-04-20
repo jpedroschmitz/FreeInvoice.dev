@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-  *, *:before, *:after {
+  *,
+  *:before,
+  *:after {
     box-sizing: inherit;
   }
 
@@ -11,15 +13,27 @@
     box-sizing: border-box;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
+    font-family: var(--font-recursive), ui-sans-serif, system-ui, sans-serif;
+    font-variation-settings:
+      'MONO' 0,
+      'CASL' 0,
+      'slnt' 0,
+      'CRSV' 0;
+    font-feature-settings: 'calt', 'kern';
+    font-kerning: normal;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    @apply antialiased font-sans;
-    font-feature-settings:
-      "rlig" 1,
-      "calt" 1;
+    @apply text-base text-ink bg-paper;
     word-wrap: break-word;
-    height: 100vh;
+  }
+
+  ::selection {
+    background-color: oklch(50% 0.200 38 / 0.18);
+    color: oklch(14% 0.014 40);
   }
 
   ::-webkit-scrollbar {
@@ -27,6 +41,47 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full border-x-2 border-y-2 border-solid border-transparent bg-gray-500 bg-clip-padding;
+    @apply rounded-full border-x-2 border-y-2 border-solid border-transparent bg-hairline bg-clip-padding;
+  }
+}
+
+@layer utilities {
+  .font-mono {
+    font-variation-settings:
+      'MONO' 1,
+      'CASL' 0,
+      'slnt' 0,
+      'CRSV' 0;
+  }
+
+  .font-sans {
+    font-variation-settings:
+      'MONO' 0,
+      'CASL' 0,
+      'slnt' 0,
+      'CRSV' 0;
+  }
+
+  .font-display {
+    font-variation-settings:
+      'MONO' 1,
+      'CASL' 0,
+      'slnt' 0,
+      'CRSV' 0;
+    letter-spacing: -0.02em;
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
