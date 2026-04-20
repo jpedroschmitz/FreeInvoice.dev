@@ -1,8 +1,7 @@
 import { Table, TD, TH, TR } from '@ag-media/react-pdf-table';
-import { Document, Font, Link, Page, Text, View } from '@react-pdf/renderer';
+import { Document, Font, Link, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
 import currency from 'currency.js';
 import { format, parseISO } from 'date-fns';
-import { createTw } from 'react-pdf-tailwind';
 
 import { InvoiceFormValues } from '@/lib/invoice-validation';
 
@@ -32,16 +31,187 @@ Font.register({
   ],
 });
 
-const tw = createTw({
-  theme: {
-    fontFamily: {
-      sans: 'DM Sans',
-    },
-    extend: {
-      colors: {
-        primary: '#333333',
-      },
-    },
+const TEXT_COLOR = '#333333';
+const RULE_COLOR = '#E7EBF4';
+
+const styles = StyleSheet.create({
+  page: {
+    color: TEXT_COLOR,
+    paddingHorizontal: 36,
+    paddingTop: 36,
+    fontFamily: 'DM Sans',
+  },
+  rowBetween: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 24,
+    lineHeight: 1,
+    fontWeight: 'bold',
+  },
+  invoiceId: {
+    marginTop: 24,
+    fontSize: 10,
+    lineHeight: 1,
+    fontWeight: 500,
+    letterSpacing: 0.25,
+  },
+  datesSection: { marginTop: 48 },
+  dateRowSpaced: {
+    marginTop: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  dateLabel: {
+    marginRight: 15,
+    fontSize: 10,
+    lineHeight: 1,
+  },
+  dueDateLabel: {
+    marginRight: 30,
+    fontSize: 10,
+    lineHeight: 1,
+  },
+  dateValue: {
+    fontSize: 10,
+    lineHeight: 1,
+    fontWeight: 'bold',
+  },
+  divider: {
+    marginTop: 48,
+    height: 1,
+    width: '100%',
+    backgroundColor: RULE_COLOR,
+  },
+  addressRow: {
+    marginTop: 44,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  addressCol: { width: '100%' },
+  label: {
+    fontSize: 10,
+    lineHeight: 1,
+    fontWeight: 'bold',
+  },
+  addressBody: { marginTop: 20 },
+  addressLine: {
+    marginTop: 8,
+    fontSize: 10,
+    lineHeight: 1,
+  },
+  tableWrap: { marginTop: 44 },
+  tableOuter: { border: 'none' },
+  tableHeaderRow: {
+    borderBottomWidth: 1,
+    borderColor: RULE_COLOR,
+    paddingBottom: 8,
+  },
+  th: {
+    paddingHorizontal: 8,
+    fontSize: 10,
+    lineHeight: 1,
+    fontWeight: 'bold',
+  },
+  thCenter: {
+    justifyContent: 'center',
+    paddingHorizontal: 8,
+    fontSize: 10,
+    lineHeight: 1,
+    fontWeight: 'bold',
+  },
+  thRight: {
+    justifyContent: 'flex-end',
+    paddingHorizontal: 8,
+    fontSize: 10,
+    lineHeight: 1,
+    fontWeight: 'bold',
+  },
+  thRightLast: {
+    justifyContent: 'flex-end',
+    paddingRight: 8,
+    fontSize: 10,
+    lineHeight: 1,
+    fontWeight: 'bold',
+  },
+  tableRow: {
+    borderBottomWidth: 1,
+    borderColor: RULE_COLOR,
+  },
+  td: {
+    alignItems: 'center',
+    padding: 8,
+    fontSize: 10,
+    lineHeight: 1,
+  },
+  tdCenter: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 8,
+    fontSize: 10,
+    lineHeight: 1,
+  },
+  tdRight: {
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: 8,
+    fontSize: 10,
+    lineHeight: 1,
+  },
+  tdRightLast: {
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    paddingVertical: 8,
+    paddingRight: 8,
+    fontSize: 10,
+    lineHeight: 1,
+  },
+  totalCell: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    borderBottomWidth: 1,
+    borderColor: RULE_COLOR,
+    padding: 8,
+    fontSize: 10,
+    lineHeight: 1,
+    fontWeight: 'bold',
+  },
+  notesWrap: { marginTop: 44 },
+  notesBody: {
+    marginTop: 20,
+    fontSize: 10,
+    lineHeight: 2,
+    fontWeight: 500,
+  },
+  footer: {
+    marginTop: 'auto',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderTopWidth: 1,
+    borderColor: RULE_COLOR,
+    paddingVertical: 16,
+  },
+  footerText: {
+    fontSize: 8,
+    fontWeight: 500,
+  },
+  footerLink: {
+    color: TEXT_COLOR,
+    fontSize: 8,
+    fontWeight: 500,
+    textDecoration: 'none',
+  },
+  spacer: {
+    marginTop: 8,
+    fontSize: 10,
+    lineHeight: 1,
   },
 });
 
@@ -83,86 +253,81 @@ export function PdfDocument({ invoice }: { invoice: InvoiceData }) {
       subject={`Invoice for ${bill_to}`}
       creationDate={currentDate}
     >
-      <Page size="A4" style={tw('text-primary px-[36px] pt-[36px] font-sans antialiased')}>
-        <View style={tw('flex flex-row justify-between')}>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.rowBetween}>
           <View>
-            <Text style={tw('text-[24px] leading-none font-bold')}>Invoice</Text>
-            <Text style={tw('mt-6 text-[10px] leading-none font-medium tracking-wide')}>#{invoice_id}</Text>
+            <Text style={styles.title}>Invoice</Text>
+            <Text style={styles.invoiceId}>#{invoice_id}</Text>
           </View>
         </View>
 
-        <View style={tw('mt-12')}>
-          <View style={tw('flex flex-row items-center')}>
-            <Text style={tw('mr-[15px] text-[10px] leading-none')}>Invoice Date</Text>
-            <Text style={tw('text-[10px] leading-none font-bold')}>{invoiceDate}</Text>
+        <View style={styles.datesSection}>
+          <View style={styles.row}>
+            <Text style={styles.dateLabel}>Invoice Date</Text>
+            <Text style={styles.dateValue}>{invoiceDate}</Text>
           </View>
-          <View style={tw('mt-2 flex flex-row items-center')}>
-            <Text style={tw('mr-[30px] text-[10px] leading-none')}>Due Date</Text>
-            <Text style={tw('text-[10px] leading-none font-bold')}>{dueDate}</Text>
+          <View style={styles.dateRowSpaced}>
+            <Text style={styles.dueDateLabel}>Due Date</Text>
+            <Text style={styles.dateValue}>{dueDate}</Text>
           </View>
         </View>
 
-        <View style={tw('mt-12 h-px w-full bg-[#E7EBF4]')} />
+        <View style={styles.divider} />
 
-        <View style={tw('mt-11 flex flex-row items-center')}>
-          <View style={tw('w-full')}>
-            <Text style={tw('text-[10px] leading-none font-bold')}>Billed To</Text>
-            <View style={tw('mt-5')}>
-              <Text style={tw('text-[10px] leading-none font-bold')}>{bill_to}</Text>
-              <Text style={tw('mt-2 text-[10px] leading-none')}>{bill_to_address}</Text>
-              {vat_id ? <Text style={tw('mt-2 text-[10px] leading-none')}>VAT-ID: {vat_id}</Text> : null}
+        <View style={styles.addressRow}>
+          <View style={styles.addressCol}>
+            <Text style={styles.label}>Billed To</Text>
+            <View style={styles.addressBody}>
+              <Text style={styles.label}>{bill_to}</Text>
+              <Text style={styles.addressLine}>{bill_to_address}</Text>
+              {vat_id ? <Text style={styles.addressLine}>VAT-ID: {vat_id}</Text> : null}
             </View>
           </View>
-          <View style={tw('w-full')}>
-            <Text style={tw('text-[10px] leading-none font-bold')}>From</Text>
-            <View style={tw('mt-5')}>
-              <Text style={tw('text-[10px] leading-none font-bold')}>{company_name}</Text>
-              <Text style={tw('mt-2 text-[10px] leading-none')}>{company_address}</Text>
-              {vat_id ? <Text style={tw('pointer-events-none mt-2 text-[10px] leading-none')}>&nbsp;</Text> : null}
+          <View style={styles.addressCol}>
+            <Text style={styles.label}>From</Text>
+            <View style={styles.addressBody}>
+              <Text style={styles.label}>{company_name}</Text>
+              <Text style={styles.addressLine}>{company_address}</Text>
+              {vat_id ? <Text style={styles.spacer}>&nbsp;</Text> : null}
             </View>
           </View>
         </View>
 
-        <View style={tw('mt-11')}>
-          <Table style={{ border: 'none' }}>
-            <TH style={tw('border-b border-[#E7EBF4] pb-2')}>
-              <TD style={tw('px-2 text-[10px] leading-none font-bold')} weighting={0.5}>
+        <View style={styles.tableWrap}>
+          <Table style={styles.tableOuter}>
+            <TH style={styles.tableHeaderRow}>
+              <TD style={styles.th} weighting={0.5}>
                 Description
               </TD>
-              <TD style={tw('justify-center px-2 text-[10px] leading-none font-bold')} weighting={0.1}>
+              <TD style={styles.thCenter} weighting={0.1}>
                 Quantity
               </TD>
-              <TD style={tw('justify-end px-2 text-[10px] leading-none font-bold')} weighting={0.2}>
+              <TD style={styles.thRight} weighting={0.2}>
                 Price
               </TD>
-              <TD style={tw('justify-end pr-2 text-[10px] leading-none font-bold')} weighting={0.2}>
+              <TD style={styles.thRightLast} weighting={0.2}>
                 Amount
               </TD>
             </TH>
             {services.map((item) => (
-              <TR key={item.description} style={tw('border-b border-[#E7EBF4]')}>
-                <TD style={tw('items-center p-2 text-[10px] leading-none')} weighting={0.5}>
+              <TR key={item.description} style={styles.tableRow}>
+                <TD style={styles.td} weighting={0.5}>
                   {item.description}
                 </TD>
-                <TD style={tw('items-center justify-center p-2 text-[10px] leading-none')} weighting={0.1}>
+                <TD style={styles.tdCenter} weighting={0.1}>
                   {item.quantity}
                 </TD>
-                <TD style={tw('items-center justify-end p-2 text-[10px] leading-none')} weighting={0.2}>
+                <TD style={styles.tdRight} weighting={0.2}>
                   {formatCurrency(currency(item.amount).value, invoiceCurrency)}
                 </TD>
-                <TD style={tw('items-center justify-end py-2 pr-2 text-[10px] leading-none')} weighting={0.2}>
+                <TD style={styles.tdRightLast} weighting={0.2}>
                   {formatCurrency(currency(item.amount).multiply(item.quantity).value, invoiceCurrency)}
                 </TD>
               </TR>
             ))}
             <TR>
               <TD weighting={0.75} />
-              <TD
-                style={tw(
-                  'flex flex-row items-center justify-between justify-end border-b border-[#E7EBF4] p-2 text-[10px] leading-none font-bold',
-                )}
-                weighting={0.25}
-              >
+              <TD style={styles.totalCell} weighting={0.25}>
                 <Text>Total</Text>
                 <Text>{totalFormatted}</Text>
               </TD>
@@ -171,17 +336,17 @@ export function PdfDocument({ invoice }: { invoice: InvoiceData }) {
         </View>
 
         {notes ? (
-          <View style={tw('mt-11')}>
-            <Text style={tw('text-[10px] leading-none font-bold')}>Additional Information</Text>
-            <Text style={tw('mt-5 text-[10px] leading-[20px] font-medium')}>{notes}</Text>
+          <View style={styles.notesWrap}>
+            <Text style={styles.label}>Additional Information</Text>
+            <Text style={styles.notesBody}>{notes}</Text>
           </View>
         ) : null}
 
-        <View fixed style={tw('mt-auto flex flex-row items-center justify-between border-t border-[#E7EBF4] py-4')}>
-          <Text style={tw('text-[8px] font-medium')}>
+        <View fixed style={styles.footer}>
+          <Text style={styles.footerText}>
             #{invoice_id} · {totalFormatted} due {dueDate}
           </Text>
-          <Link style={tw('text-primary text-[8px] font-medium')} href="https://freeinvoice.dev">
+          <Link style={styles.footerLink} href="https://freeinvoice.dev">
             FreeInvoice.dev
           </Link>
         </View>

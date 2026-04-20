@@ -17,7 +17,7 @@ export const Route = createFileRoute('/app')({
       { property: 'og:description', content: pageDescription },
       { property: 'og:type', content: 'website' },
       { property: 'og:url', content: 'https://freeinvoice.dev/app' },
-      { property: 'og:image', content: 'https://freeinvoice.dev/og-image.jpg' },
+      { property: 'og:image', content: 'https://freeinvoice.dev/og-image.jpg?v=2' },
       { property: 'og:image:width', content: '1200' },
       { property: 'og:image:height', content: '640' },
       { property: 'og:image:alt', content: 'FreeInvoice.dev' },

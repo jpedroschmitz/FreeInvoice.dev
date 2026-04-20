@@ -8,7 +8,6 @@ Free invoice generator. Client-side, PDF out, no sign-up.
 
 - [TanStack Start](https://tanstack.com/start) on [Vite](https://vite.dev/)
 - [Tailwind CSS v4](https://tailwindcss.com/)
-- [Recursive](https://www.recursive.design/) via [`@fontsource-variable/recursive`](https://fontsource.org/fonts/recursive)
 - [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)
 - [`@react-pdf/renderer`](https://react-pdf.org/)
 - [Headless UI](https://headlessui.com/) for a11y primitives

@@ -37,7 +37,7 @@ export const Route = createRootRoute({
       { property: 'og:type', content: 'website' },
       { property: 'og:site_name', content: 'FreeInvoice.dev' },
       { property: 'og:url', content: 'https://freeinvoice.dev/' },
-      { property: 'og:image', content: 'https://freeinvoice.dev/og-image.jpg' },
+      { property: 'og:image', content: 'https://freeinvoice.dev/og-image.jpg?v=2' },
       { property: 'og:image:width', content: '1200' },
       { property: 'og:image:height', content: '640' },
       { property: 'og:image:alt', content: 'FreeInvoice.dev' },
@@ -51,7 +51,8 @@ export const Route = createRootRoute({
       },
     ],
     links: [
-      { rel: 'canonical', href: 'https://freeinvoice.dev/' },
+      { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href: appCss },
     ],
   }),

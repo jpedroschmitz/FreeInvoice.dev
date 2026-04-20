@@ -5,10 +5,10 @@ import { Controller, SubmitHandler, useFieldArray, useForm, useWatch } from 'rea
 
 import { PreviewDrawer } from '@/components/preview-drawer';
 import { useFormStorage, type AutosaveStatus } from '@/hooks/useFormStorage';
-import { InvoiceFormValues, invoiceSchema } from '@/lib/invoice-validation';
+import { InvoiceFormInput, InvoiceFormValues, invoiceSchema } from '@/lib/invoice-validation';
 import { ArrowRight, Plus, X } from '@/lib/ui/icons';
 
-const defaultValues: InvoiceFormValues = {
+const defaultValues: InvoiceFormInput = {
   company_name: '',
   company_address: '',
   bill_to: '',
@@ -154,7 +154,7 @@ export function InvoiceForm() {
     getValues,
     reset,
     formState: { errors },
-  } = useForm<InvoiceFormValues>({
+  } = useForm<InvoiceFormInput, unknown, InvoiceFormValues>({
     resolver: zodResolver(invoiceSchema),
     defaultValues,
     mode: 'onBlur',

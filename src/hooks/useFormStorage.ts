@@ -1,21 +1,21 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { UseFormGetValues, UseFormReset, UseFormWatch } from 'react-hook-form';
 
-import { InvoiceFormValues } from '@/lib/invoice-validation';
+import { InvoiceFormInput } from '@/lib/invoice-validation';
 
 const STORAGE_KEY = '@freeinvoice/draft';
 const SAVE_DEBOUNCE_MS = 500;
 const LOADED_INDICATOR_MS = 2000;
 
-type Stored = { enabled: boolean; form?: InvoiceFormValues };
+type Stored = { enabled: boolean; form?: InvoiceFormInput };
 
 export type AutosaveStatus = 'idle' | 'saving' | 'saved' | 'loaded';
 
 type Args = {
-  watch: UseFormWatch<InvoiceFormValues>;
-  reset: UseFormReset<InvoiceFormValues>;
-  getValues: UseFormGetValues<InvoiceFormValues>;
-  defaultValues: InvoiceFormValues;
+  watch: UseFormWatch<InvoiceFormInput>;
+  reset: UseFormReset<InvoiceFormInput>;
+  getValues: UseFormGetValues<InvoiceFormInput>;
+  defaultValues: InvoiceFormInput;
 };
 
 function readStorage(): Stored | null {

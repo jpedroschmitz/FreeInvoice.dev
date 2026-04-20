@@ -5,6 +5,10 @@ import { Footer } from '@/components/footer';
 
 export const Route = createFileRoute('/')({
   component: Homepage,
+  head: () => ({
+    meta: [],
+    links: [{ rel: 'canonical', href: 'https://freeinvoice.dev/' }],
+  }),
 });
 
 function Homepage() {

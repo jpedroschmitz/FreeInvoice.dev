@@ -23,4 +23,5 @@ export const invoiceSchema = z.object({
   notes: z.string().optional(),
 });
 
-export type InvoiceFormValues = z.infer<typeof invoiceSchema>;
+export type InvoiceFormInput = z.input<typeof invoiceSchema>;
+export type InvoiceFormValues = z.output<typeof invoiceSchema>;

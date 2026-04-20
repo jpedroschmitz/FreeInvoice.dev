@@ -59,9 +59,6 @@ importers:
       react-hook-form:
         specifier: 7.73.1
         version: 7.73.1(react@19.2.5)
-      react-pdf-tailwind:
-        specifier: 3.0.0
-        version: 3.0.0(react@19.2.5)
       vite:
         specifier: 8.0.9
         version: 8.0.9(@types/node@25.6.0)(esbuild@0.27.7)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.3)
@@ -790,9 +787,6 @@ packages:
 
   '@react-pdf/types@2.11.1':
     resolution: {integrity: sha512-i9xQgfaDU9QoeNnbp6rltXCWg1huEh195rpOuN8cE4BZ2FuLdQrsIcb2dhFF9aOxXf+XBA6LOSpIW051MDD/bw==}
-
-  '@react-pdf/types@2.7.0':
-    resolution: {integrity: sha512-7KrPPCpgRPKR+g+T127PE4bpw9Q84ZiY07EYRwXKVtTEVW9wJ5BZiF9smT9IvH19s+MQaDLmYRgjESsnqlyH0Q==}
 
   '@react-types/shared@3.34.0':
     resolution: {integrity: sha512-gp6xo/s2lX54AlTjOiqwDnxA7UW79BNvI9dB9pr3LZTzRKCd1ZA+ZbgKw/ReIiWuvvVw/8QFJpnqeeFyLocMcQ==}
@@ -1867,9 +1861,6 @@ packages:
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
-  react-pdf-tailwind@3.0.0:
-    resolution: {integrity: sha512-Up9T5lkWcWDmepMaYkHzoo8iptwvc0AkYpud0eDRlF/rto5wAijDv2fAZ4AYsaO1O5CQV/2VjELToFGzSjzs4g==}
-
   react-stately@3.46.0:
     resolution: {integrity: sha512-OdxhWvHgs2L4OJGIs7hnuTr5WjjMM6enhNEAMRqiekhF8+ITvA2LRwNftOZwcogaoCslGYq5S2VQTQwnm0GbCA==}
     peerDependencies:
@@ -2820,8 +2811,6 @@ snapshots:
       '@react-pdf/font': 4.0.8
       '@react-pdf/primitives': 4.3.0
       '@react-pdf/stylesheet': 6.2.1
-
-  '@react-pdf/types@2.7.0': {}
 
   '@react-types/shared@3.34.0(react@19.2.5)':
     dependencies:
@@ -3882,14 +3871,6 @@ snapshots:
       react: 19.2.5
 
   react-is@16.13.1: {}
-
-  react-pdf-tailwind@3.0.0(react@19.2.5):
-    dependencies:
-      '@react-pdf/renderer': 4.5.1(react@19.2.5)
-      '@react-pdf/types': 2.7.0
-      tailwindcss: 4.2.3
-    transitivePeerDependencies:
-      - react
 
   react-stately@3.46.0(react@19.2.5):
     dependencies:
