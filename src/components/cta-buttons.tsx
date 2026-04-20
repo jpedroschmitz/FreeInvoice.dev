@@ -19,7 +19,7 @@ export function HeroCTAs() {
         <ArrowRight className="transition-transform duration-150 ease-out group-hover:translate-x-0.5" />
       </Link>
       <a
-        href="/invoice-example.pdf"
+        href="/invoice-example.pdf?v=2"
         onClick={() => captureEvent('Sample_Invoice_Test')}
         target="_blank"
         rel="noreferrer"
