@@ -55,11 +55,11 @@ export function PdfDocument({ invoice }: { invoice: InvoiceData }) {
     bill_to_address,
     company_address,
     company_name,
-    currency: invoiceCurrency = 'USD',
+    currency: invoiceCurrency,
     due_date,
     notes,
     vat_id,
-    services = [],
+    services,
     invoice_id,
   } = invoice;
 
@@ -83,42 +83,42 @@ export function PdfDocument({ invoice }: { invoice: InvoiceData }) {
       subject={`Invoice for ${bill_to}`}
       creationDate={currentDate}
     >
-      <Page size="A4" style={tw('pt-[36px] px-[36px] font-sans text-primary antialiased')}>
+      <Page size="A4" style={tw('text-primary px-[36px] pt-[36px] font-sans antialiased')}>
         <View style={tw('flex flex-row justify-between')}>
           <View>
-            <Text style={tw('text-[24px] font-bold leading-none')}>Invoice</Text>
-            <Text style={tw('text-[10px] mt-6 leading-none font-medium tracking-wide')}>#{invoice_id}</Text>
+            <Text style={tw('text-[24px] leading-none font-bold')}>Invoice</Text>
+            <Text style={tw('mt-6 text-[10px] leading-none font-medium tracking-wide')}>#{invoice_id}</Text>
           </View>
         </View>
 
         <View style={tw('mt-12')}>
           <View style={tw('flex flex-row items-center')}>
-            <Text style={tw('text-[10px] mr-[15px] leading-none')}>Invoice Date</Text>
-            <Text style={tw('text-[10px] font-bold leading-none')}>{invoiceDate}</Text>
+            <Text style={tw('mr-[15px] text-[10px] leading-none')}>Invoice Date</Text>
+            <Text style={tw('text-[10px] leading-none font-bold')}>{invoiceDate}</Text>
           </View>
-          <View style={tw('flex flex-row items-center mt-2')}>
-            <Text style={tw('text-[10px] mr-[30px] leading-none')}>Due Date</Text>
-            <Text style={tw('text-[10px] font-bold leading-none')}>{dueDate}</Text>
+          <View style={tw('mt-2 flex flex-row items-center')}>
+            <Text style={tw('mr-[30px] text-[10px] leading-none')}>Due Date</Text>
+            <Text style={tw('text-[10px] leading-none font-bold')}>{dueDate}</Text>
           </View>
         </View>
 
-        <View style={tw('h-px bg-[#E7EBF4] w-full mt-12')} />
+        <View style={tw('mt-12 h-px w-full bg-[#E7EBF4]')} />
 
         <View style={tw('mt-11 flex flex-row items-center')}>
           <View style={tw('w-full')}>
-            <Text style={tw('text-[10px] font-bold leading-none')}>Billed To</Text>
+            <Text style={tw('text-[10px] leading-none font-bold')}>Billed To</Text>
             <View style={tw('mt-5')}>
-              <Text style={tw('text-[10px] font-bold leading-none')}>{bill_to}</Text>
-              <Text style={tw('text-[10px] leading-none mt-2')}>{bill_to_address}</Text>
-              {vat_id ? <Text style={tw('text-[10px] leading-none mt-2')}>VAT-ID: {vat_id}</Text> : null}
+              <Text style={tw('text-[10px] leading-none font-bold')}>{bill_to}</Text>
+              <Text style={tw('mt-2 text-[10px] leading-none')}>{bill_to_address}</Text>
+              {vat_id ? <Text style={tw('mt-2 text-[10px] leading-none')}>VAT-ID: {vat_id}</Text> : null}
             </View>
           </View>
           <View style={tw('w-full')}>
-            <Text style={tw('text-[10px] font-bold leading-none')}>From</Text>
+            <Text style={tw('text-[10px] leading-none font-bold')}>From</Text>
             <View style={tw('mt-5')}>
-              <Text style={tw('text-[10px] font-bold leading-none')}>{company_name}</Text>
-              <Text style={tw('text-[10px] leading-none mt-2')}>{company_address}</Text>
-              {vat_id ? <Text style={tw('text-[10px] leading-none mt-2 pointer-events-none')}>&nbsp;</Text> : null}
+              <Text style={tw('text-[10px] leading-none font-bold')}>{company_name}</Text>
+              <Text style={tw('mt-2 text-[10px] leading-none')}>{company_address}</Text>
+              {vat_id ? <Text style={tw('pointer-events-none mt-2 text-[10px] leading-none')}>&nbsp;</Text> : null}
             </View>
           </View>
         </View>
@@ -126,31 +126,31 @@ export function PdfDocument({ invoice }: { invoice: InvoiceData }) {
         <View style={tw('mt-11')}>
           <Table style={{ border: 'none' }}>
             <TH style={tw('border-b border-[#E7EBF4] pb-2')}>
-              <TD style={tw('text-[10px] font-bold leading-none px-2')} weighting={0.5}>
+              <TD style={tw('px-2 text-[10px] leading-none font-bold')} weighting={0.5}>
                 Description
               </TD>
-              <TD style={tw('text-[10px] font-bold justify-center leading-none px-2')} weighting={0.1}>
+              <TD style={tw('justify-center px-2 text-[10px] leading-none font-bold')} weighting={0.1}>
                 Quantity
               </TD>
-              <TD style={tw('text-[10px] font-bold leading-none justify-end px-2')} weighting={0.2}>
+              <TD style={tw('justify-end px-2 text-[10px] leading-none font-bold')} weighting={0.2}>
                 Price
               </TD>
-              <TD style={tw('text-[10px] font-bold leading-none justify-end pr-2')} weighting={0.2}>
+              <TD style={tw('justify-end pr-2 text-[10px] leading-none font-bold')} weighting={0.2}>
                 Amount
               </TD>
             </TH>
             {services.map((item) => (
               <TR key={item.description} style={tw('border-b border-[#E7EBF4]')}>
-                <TD style={tw('text-[10px] items-center leading-none p-2')} weighting={0.5}>
+                <TD style={tw('items-center p-2 text-[10px] leading-none')} weighting={0.5}>
                   {item.description}
                 </TD>
-                <TD style={tw('text-[10px] items-center justify-center leading-none p-2')} weighting={0.1}>
+                <TD style={tw('items-center justify-center p-2 text-[10px] leading-none')} weighting={0.1}>
                   {item.quantity}
                 </TD>
-                <TD style={tw('text-[10px] items-center leading-none justify-end p-2 ')} weighting={0.2}>
+                <TD style={tw('items-center justify-end p-2 text-[10px] leading-none')} weighting={0.2}>
                   {formatCurrency(currency(item.amount).value, invoiceCurrency)}
                 </TD>
-                <TD style={tw('text-[10px] items-center leading-none justify-end pr-2 py-2')} weighting={0.2}>
+                <TD style={tw('items-center justify-end py-2 pr-2 text-[10px] leading-none')} weighting={0.2}>
                   {formatCurrency(currency(item.amount).multiply(item.quantity).value, invoiceCurrency)}
                 </TD>
               </TR>
@@ -159,7 +159,7 @@ export function PdfDocument({ invoice }: { invoice: InvoiceData }) {
               <TD weighting={0.75} />
               <TD
                 style={tw(
-                  'text-[10px] font-bold leading-none justify-end border-b border-[#E7EBF4] flex flex-row justify-between items-center p-2'
+                  'flex flex-row items-center justify-between justify-end border-b border-[#E7EBF4] p-2 text-[10px] leading-none font-bold',
                 )}
                 weighting={0.25}
               >
@@ -172,16 +172,16 @@ export function PdfDocument({ invoice }: { invoice: InvoiceData }) {
 
         {notes ? (
           <View style={tw('mt-11')}>
-            <Text style={tw('text-[10px] font-bold leading-none')}>Additional Information</Text>
-            <Text style={tw('text-[10px] leading-[20px] font-medium mt-5')}>{notes}</Text>
+            <Text style={tw('text-[10px] leading-none font-bold')}>Additional Information</Text>
+            <Text style={tw('mt-5 text-[10px] leading-[20px] font-medium')}>{notes}</Text>
           </View>
         ) : null}
 
-        <View fixed style={tw('mt-auto py-4 border-t border-[#E7EBF4] flex flex-row items-center justify-between')}>
+        <View fixed style={tw('mt-auto flex flex-row items-center justify-between border-t border-[#E7EBF4] py-4')}>
           <Text style={tw('text-[8px] font-medium')}>
             #{invoice_id} · {totalFormatted} due {dueDate}
           </Text>
-          <Link style={tw('text-[8px] font-medium text-primary')} href="https://freeinvoice.dev">
+          <Link style={tw('text-primary text-[8px] font-medium')} href="https://freeinvoice.dev">
             FreeInvoice.dev
           </Link>
         </View>

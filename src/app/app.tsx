@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import { InvoiceForm } from '@/components/invoice-form';
 import { Footer } from '@/components/footer';
+import { InvoiceForm } from '@/components/invoice-form';
 
 const pageTitle = `Create invoice — FreeInvoice.dev`;
 const pageDescription = `Build a professional invoice in your browser and export it as a PDF. Free, no sign-up, no data leaves your device.`;
@@ -32,10 +32,14 @@ function App() {
     <main className="flex flex-1 flex-col">
       <section className="flex-1">
         <div className="mx-auto w-full max-w-6xl px-6 py-12 lg:px-10 lg:py-16">
-          <p className="font-mono text-2xs uppercase tracking-caps text-muted">
-            New invoice <span aria-hidden="true" className="text-hairline">·</span> draft
+          <p className="text-2xs tracking-caps text-muted font-mono uppercase">
+            New invoice{' '}
+            <span aria-hidden="true" className="text-hairline">
+              ·
+            </span>{' '}
+            draft
           </p>
-          <h1 className="mt-3 font-display text-4xl font-medium tracking-display text-ink-strong sm:text-5xl">
+          <h1 className="font-display tracking-display text-ink-strong mt-3 text-4xl font-medium sm:text-5xl">
             Create invoice
           </h1>
 

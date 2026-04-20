@@ -171,7 +171,7 @@ test.describe('Save/Load/Clear Form Data', () => {
           currency: 'USD',
           due_date: '',
           services: [{ description: '', quantity: '1', amount: '' }],
-        })
+        }),
       );
     });
 
@@ -201,7 +201,7 @@ test.describe('Save/Load/Clear Form Data', () => {
           vat_id: 'EU999888777',
           services: [{ description: 'Consulting', quantity: '5', amount: '200.00' }],
           notes: 'Net 15 days',
-        })
+        }),
       );
     });
 

@@ -33,12 +33,12 @@
   }
 
   body {
-    @apply text-base text-ink bg-paper;
+    @apply text-ink bg-paper text-base;
     word-wrap: break-word;
   }
 
   ::selection {
-    background-color: oklch(50% 0.200 38 / 0.18);
+    background-color: oklch(50% 0.2 38 / 0.18);
     color: oklch(14% 0.014 40);
   }
 
@@ -47,7 +47,7 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full border-x-2 border-y-2 border-solid border-transparent bg-hairline bg-clip-padding;
+    @apply bg-hairline rounded-full border-x-2 border-y-2 border-solid border-transparent bg-clip-padding;
   }
 }
 

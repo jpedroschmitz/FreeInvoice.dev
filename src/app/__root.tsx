@@ -64,7 +64,7 @@ function RootLayout() {
       <head>
         <HeadContent />
       </head>
-      <body className="min-h-dvh flex flex-col">
+      <body className="flex min-h-dvh flex-col">
         <Header />
         <Outlet />
         {isProd && <script dangerouslySetInnerHTML={{ __html: posthogSnippet }} />}

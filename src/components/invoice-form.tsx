@@ -1,11 +1,11 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import CurrencyInput from 'react-currency-input-field';
 import { Controller, SubmitHandler, useFieldArray, useForm, useWatch } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 
-import { InvoiceFormValues, invoiceSchema } from '@/lib/invoice-validation';
 import { PreviewDrawer } from '@/components/preview-drawer';
 import { useFormStorage, type AutosaveStatus } from '@/hooks/useFormStorage';
+import { InvoiceFormValues, invoiceSchema } from '@/lib/invoice-validation';
 import { ArrowRight, Plus, X } from '@/lib/ui/icons';
 
 const defaultValues: InvoiceFormValues = {
@@ -71,7 +71,7 @@ function Chevron() {
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 text-muted"
+      className="text-muted pointer-events-none absolute top-1/2 right-1 -translate-y-1/2"
     >
       <path d="m3 4 2 2 2-2" />
     </svg>
@@ -82,10 +82,7 @@ function Label({ htmlFor, children, srOnlyMd }: { htmlFor?: string; children: Re
   return (
     <label
       htmlFor={htmlFor}
-      className={
-        'block font-mono text-2xs uppercase tracking-caps text-muted' +
-        (srOnlyMd ? ' md:sr-only' : '')
-      }
+      className={'text-2xs tracking-caps text-muted block font-mono uppercase' + (srOnlyMd ? ' md:sr-only' : '')}
     >
       {children}
     </label>
@@ -94,15 +91,13 @@ function Label({ htmlFor, children, srOnlyMd }: { htmlFor?: string; children: Re
 
 function FieldError({ children }: { children?: React.ReactNode }) {
   if (!children) return null;
-  return (
-    <p className="mt-1 font-mono text-2xs uppercase tracking-caps text-accent">{children}</p>
-  );
+  return <p className="text-2xs tracking-caps text-accent mt-1 font-mono uppercase">{children}</p>;
 }
 
 function SectionHeader({ children }: { children: React.ReactNode }) {
   return (
-    <div className="pb-6 pt-16">
-      <h2 className="font-mono text-xs uppercase tracking-caps text-muted">{children}</h2>
+    <div className="pt-16 pb-6">
+      <h2 className="tracking-caps text-muted font-mono text-xs uppercase">{children}</h2>
     </div>
   );
 }
@@ -116,17 +111,11 @@ function AutosaveToggle({
   onChange: (next: boolean) => void;
   status: AutosaveStatus;
 }) {
-  const statusLabel = enabled
-    ? status === 'loaded'
-      ? 'Loaded'
-      : status === 'saving'
-      ? 'Saving…'
-      : 'Saved'
-    : null;
+  const statusLabel = enabled ? (status === 'loaded' ? 'Loaded' : status === 'saving' ? 'Saving…' : 'Saved') : null;
 
   return (
     <div className="flex flex-col items-start gap-2 sm:items-end">
-      <label className="group inline-flex cursor-pointer items-center gap-2 font-mono text-xs uppercase tracking-caps text-muted transition-colors hover:text-ink-strong">
+      <label className="group tracking-caps text-muted hover:text-ink-strong inline-flex cursor-pointer items-center gap-2 font-mono text-xs uppercase transition-colors">
         <input
           type="checkbox"
           checked={enabled}
@@ -135,16 +124,16 @@ function AutosaveToggle({
         />
         <span
           className={
-            'relative block h-3 w-3 shrink-0 border transition-colors peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-4 peer-focus-visible:outline-accent ' +
+            'peer-focus-visible:outline-accent relative block h-3 w-3 shrink-0 border transition-colors peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-4 ' +
             (enabled ? 'border-accent' : 'border-hairline group-hover:border-muted')
           }
           aria-hidden="true"
         >
-          {enabled && <span className="absolute inset-[2px] bg-accent" />}
+          {enabled && <span className="bg-accent absolute inset-[2px]" />}
         </span>
         Autosave &amp; auto-load
       </label>
-      <div className="font-mono text-2xs uppercase tracking-caps text-muted">
+      <div className="text-2xs tracking-caps text-muted font-mono uppercase">
         {statusLabel ?? 'Off · nothing leaves this tab'}
       </div>
     </div>
@@ -175,8 +164,12 @@ export function InvoiceForm() {
     mode: 'onBlur',
   });
 
-  const { enabled: autosaveEnabled, setEnabled: setAutosaveEnabled, status: autosaveStatus, clearForm } =
-    useFormStorage({ watch, reset, getValues, defaultValues });
+  const {
+    enabled: autosaveEnabled,
+    setEnabled: setAutosaveEnabled,
+    status: autosaveStatus,
+    clearForm,
+  } = useFormStorage({ watch, reset, getValues, defaultValues });
 
   const { fields, append, remove } = useFieldArray({ control, name: 'services' });
 
@@ -288,12 +281,7 @@ export function InvoiceForm() {
           <div className="grid gap-6 md:grid-cols-2">
             <div>
               <Label htmlFor="bill_to">Client name</Label>
-              <input
-                id="bill_to"
-                className={inputClass}
-                placeholder="John Doe"
-                {...register('bill_to')}
-              />
+              <input id="bill_to" className={inputClass} placeholder="John Doe" {...register('bill_to')} />
               <FieldError>{errors.bill_to?.message}</FieldError>
             </div>
             <div>
@@ -308,12 +296,7 @@ export function InvoiceForm() {
             </div>
             <div>
               <Label htmlFor="vat_id">VAT ID (optional)</Label>
-              <input
-                id="vat_id"
-                className={inputClass}
-                placeholder="e.g. DE123456789"
-                {...register('vat_id')}
-              />
+              <input id="vat_id" className={inputClass} placeholder="e.g. DE123456789" {...register('vat_id')} />
               <FieldError>{errors.vat_id?.message}</FieldError>
             </div>
           </div>
@@ -340,10 +323,10 @@ export function InvoiceForm() {
 
           <div className="space-y-4">
             <div className="hidden grid-cols-[1fr_4rem_9rem_6rem_1.75rem] gap-3 md:grid">
-              <span className="font-mono text-2xs uppercase tracking-caps text-muted">Description</span>
-              <span className="font-mono text-2xs uppercase tracking-caps text-muted">Qty</span>
-              <span className="font-mono text-2xs uppercase tracking-caps text-muted">Amount</span>
-              <span className="text-right font-mono text-2xs uppercase tracking-caps text-muted">Subtotal</span>
+              <span className="text-2xs tracking-caps text-muted font-mono uppercase">Description</span>
+              <span className="text-2xs tracking-caps text-muted font-mono uppercase">Qty</span>
+              <span className="text-2xs tracking-caps text-muted font-mono uppercase">Amount</span>
+              <span className="text-2xs tracking-caps text-muted text-right font-mono uppercase">Subtotal</span>
               <span />
             </div>
 
@@ -407,10 +390,8 @@ export function InvoiceForm() {
                     <FieldError>{errors.services?.[index]?.amount?.message}</FieldError>
                   </div>
                   <div className="flex items-baseline justify-between md:justify-end">
-                    <span className="font-mono text-2xs uppercase tracking-caps text-muted md:sr-only">
-                      Subtotal
-                    </span>
-                    <span className="font-mono text-sm tabular-nums text-ink md:text-right">
+                    <span className="text-2xs tracking-caps text-muted font-mono uppercase md:sr-only">Subtotal</span>
+                    <span className="text-ink font-mono text-sm tabular-nums md:text-right">
                       {formatCurrency(subtotal, currency)}
                     </span>
                   </div>
@@ -420,7 +401,7 @@ export function InvoiceForm() {
                         type="button"
                         onClick={() => remove(index)}
                         aria-label={`Remove item ${index + 1}`}
-                        className="-m-2 p-2 text-muted transition-colors hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                        className="text-muted hover:text-accent focus-visible:outline-accent -m-2 p-2 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                       >
                         <X />
                       </button>
@@ -435,16 +416,16 @@ export function InvoiceForm() {
             <button
               type="button"
               onClick={() => append({ description: '', quantity: '1', amount: '' })}
-              className="-my-1 inline-flex items-center gap-2 py-1 font-mono text-xs uppercase tracking-caps text-muted transition-colors hover:text-ink-strong focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+              className="tracking-caps text-muted hover:text-ink-strong focus-visible:outline-accent -my-1 inline-flex items-center gap-2 py-1 font-mono text-xs uppercase transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
             >
               <Plus />
               Add item
             </button>
           </div>
 
-          <div className="mt-12 flex items-baseline justify-between border-t border-hairline pt-4">
-            <span className="font-mono text-xs uppercase tracking-caps text-muted">Total</span>
-            <span className="font-display text-2xl font-medium tabular-nums text-ink-strong">
+          <div className="border-hairline mt-12 flex items-baseline justify-between border-t pt-4">
+            <span className="tracking-caps text-muted font-mono text-xs uppercase">Total</span>
+            <span className="font-display text-ink-strong text-2xl font-medium tabular-nums">
               {formatCurrency(total, currency)}
             </span>
           </div>
@@ -457,12 +438,7 @@ export function InvoiceForm() {
           <div className="mb-8 grid gap-6 md:grid-cols-2">
             <div>
               <Label htmlFor="due_date">Due date</Label>
-              <input
-                id="due_date"
-                type="date"
-                className={inputClass + ' tabular-nums'}
-                {...register('due_date')}
-              />
+              <input id="due_date" type="date" className={inputClass + ' tabular-nums'} {...register('due_date')} />
               <FieldError>{errors.due_date?.message}</FieldError>
             </div>
           </div>
@@ -473,7 +449,7 @@ export function InvoiceForm() {
               id="notes"
               rows={6}
               placeholder="Bank details, payment terms, etc."
-              className="mt-2 block w-full border border-border-subtle bg-transparent p-3 text-base text-ink-strong placeholder:text-hairline transition-colors focus:border-accent focus:outline-none focus:ring-0"
+              className="border-border-subtle text-ink-strong placeholder:text-hairline focus:border-accent mt-2 block w-full border bg-transparent p-3 text-base transition-colors focus:ring-0 focus:outline-none"
               {...register('notes')}
             />
             <FieldError>{errors.notes?.message}</FieldError>
@@ -486,7 +462,7 @@ export function InvoiceForm() {
             <button
               type="button"
               onClick={clearForm}
-              className="-my-1 self-start py-1 font-mono text-xs uppercase tracking-caps text-muted transition-colors hover:text-ink-strong focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent sm:self-auto"
+              className="tracking-caps text-muted hover:text-ink-strong focus-visible:outline-accent -my-1 self-start py-1 font-mono text-xs uppercase transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 sm:self-auto"
             >
               Clear form
             </button>
@@ -496,14 +472,14 @@ export function InvoiceForm() {
                 type="button"
                 onClick={handleSubmit(onPreview)}
                 disabled={isGenerating || isPreviewLoading}
-                className="-my-2 inline-flex items-center justify-center gap-2 py-2 font-mono text-xs uppercase tracking-caps text-muted transition-colors hover:text-ink-strong focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent disabled:pointer-events-none disabled:opacity-50"
+                className="tracking-caps text-muted hover:text-ink-strong focus-visible:outline-accent -my-2 inline-flex items-center justify-center gap-2 py-2 font-mono text-xs uppercase transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 disabled:pointer-events-none disabled:opacity-50"
               >
                 Preview
               </button>
               <button
                 type="submit"
                 disabled={isGenerating}
-                className="inline-flex items-center justify-center gap-3 bg-accent px-5 py-3.5 font-mono text-sm font-medium uppercase tracking-caps text-paper transition-[background-color,transform] duration-150 ease-out hover:bg-accent-press active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:pointer-events-none disabled:opacity-50"
+                className="bg-accent tracking-caps text-paper hover:bg-accent-press focus-visible:outline-accent inline-flex items-center justify-center gap-3 px-5 py-3.5 font-mono text-sm font-medium uppercase transition-[background-color,transform] duration-150 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50"
               >
                 {isGenerating ? 'Preparing…' : 'Download PDF'}
                 <ArrowRight />
@@ -512,8 +488,8 @@ export function InvoiceForm() {
           </div>
 
           {lastDownload && (
-            <p className="mt-4 text-right font-mono text-2xs uppercase tracking-caps text-muted">
-              Downloaded · <span className="tabular-nums text-ink">{lastDownload}</span>
+            <p className="text-2xs tracking-caps text-muted mt-4 text-right font-mono uppercase">
+              Downloaded · <span className="text-ink tabular-nums">{lastDownload}</span>
             </p>
           )}
         </section>

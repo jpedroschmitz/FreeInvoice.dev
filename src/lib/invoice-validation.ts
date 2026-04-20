@@ -18,7 +18,7 @@ export const invoiceSchema = z.object({
       description: z.string().min(3, { message: 'Description is required' }),
       quantity: z.string().optional().default('1'),
       amount: z.string().min(1, { message: 'Amount is required' }),
-    })
+    }),
   ),
   notes: z.string().optional(),
 });

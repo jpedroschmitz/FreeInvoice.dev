@@ -12,10 +12,7 @@ export default {
       },
       fontSize: {
         '2xs': ['0.6875rem', { lineHeight: '1rem' }],
-        display: [
-          'clamp(2.25rem, min(7vw, 9vh), 5rem)',
-          { lineHeight: '1', letterSpacing: '-0.02em' },
-        ],
+        display: ['clamp(2.25rem, min(7vw, 9vh), 5rem)', { lineHeight: '1', letterSpacing: '-0.02em' }],
       },
       letterSpacing: {
         display: '-0.02em',

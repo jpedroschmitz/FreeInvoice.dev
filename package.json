@@ -1,11 +1,11 @@
 {
   "name": "FreeInvoice.dev",
-  "description": "Professional invoices in seconds. Completely free, user-friendly, and secure with client-side processing — your data stays with you.",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
-  "author": "João Pedro Schmitz (@jpedroschmitz)",
+  "description": "Professional invoices in seconds. Completely free, user-friendly, and secure with client-side processing — your data stays with you.",
   "license": "MIT",
+  "author": "João Pedro Schmitz (@jpedroschmitz)",
+  "type": "module",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
@@ -19,12 +19,6 @@
     "format:check": "oxfmt --check",
     "format:ci": "oxfmt --list-different .",
     "postinstall": "husky"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,mjs,cjs}": [
-      "oxlint --fix",
-      "oxfmt --write --no-error-on-unmatched-pattern"
-    ]
   },
   "dependencies": {
     "@ag-media/react-pdf-table": "2.0.3",
@@ -61,5 +55,11 @@
     "oxlint-tsgolint": "0.21.1",
     "tailwindcss": "4.2.3",
     "typescript": "6.0.3"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,mjs,cjs}": [
+      "oxlint --fix",
+      "oxfmt --write --no-error-on-unmatched-pattern"
+    ]
   }
 }

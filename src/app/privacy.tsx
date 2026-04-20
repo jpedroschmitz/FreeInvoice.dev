@@ -27,21 +27,21 @@ export const Route = createFileRoute('/privacy')({
 });
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
-  return <h2 className="text-xl font-semibold text-ink-strong">{children}</h2>;
+  return <h2 className="text-ink-strong text-xl font-semibold">{children}</h2>;
 }
 
 function Paragraph({ children }: { children: React.ReactNode }) {
-  return <p className="text-base leading-[1.7] text-ink">{children}</p>;
+  return <p className="text-ink text-base leading-[1.7]">{children}</p>;
 }
 
 function List({ children }: { children: React.ReactNode }) {
-  return <ul className="space-y-2.5 text-base leading-[1.55] text-ink">{children}</ul>;
+  return <ul className="text-ink space-y-2.5 text-base leading-[1.55]">{children}</ul>;
 }
 
 function ListItem({ children }: { children: React.ReactNode }) {
   return (
     <li className="flex gap-3">
-      <span aria-hidden="true" className="font-mono text-muted">
+      <span aria-hidden="true" className="text-muted font-mono">
         —
       </span>
       <span>{children}</span>
@@ -55,7 +55,7 @@ function ExternalLink({ href, children }: { href: string; children: React.ReactN
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="text-ink-strong underline decoration-hairline decoration-1 underline-offset-[3px] transition-colors hover:decoration-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+      className="text-ink-strong decoration-hairline hover:decoration-accent focus-visible:outline-accent underline decoration-1 underline-offset-[3px] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
     >
       {children}
     </a>
@@ -68,11 +68,11 @@ function Privacy() {
       <article className="flex-1">
         <div className="mx-auto w-full max-w-6xl px-6 py-12 lg:px-10 lg:py-16">
           <div className="max-w-[65ch]">
-            <p className="font-mono text-2xs uppercase tracking-caps text-muted">Policy</p>
-            <h1 className="mt-3 font-display text-4xl font-medium tracking-display text-ink-strong sm:text-5xl">
+            <p className="text-2xs tracking-caps text-muted font-mono uppercase">Policy</p>
+            <h1 className="font-display tracking-display text-ink-strong mt-3 text-4xl font-medium sm:text-5xl">
               Privacy policy
             </h1>
-            <p className="mt-8 text-lg leading-[1.55] text-ink">
+            <p className="text-ink mt-8 text-lg leading-[1.55]">
               FreeInvoice.dev runs entirely in your browser. We don&apos;t store, transmit, or have access to your
               business information. This page describes exactly how data is handled.
             </p>
@@ -154,8 +154,8 @@ function Privacy() {
               </Paragraph>
             </section>
 
-            <p className="mt-20 font-mono text-2xs uppercase tracking-caps text-muted">
-              Last updated <span className="tabular-nums text-ink">2024-11-09</span>
+            <p className="text-2xs tracking-caps text-muted mt-20 font-mono uppercase">
+              Last updated <span className="text-ink tabular-nums">2024-11-09</span>
             </p>
           </div>
         </div>
