@@ -54,8 +54,6 @@ function formatCurrency(amount: number, currency: string): string {
   }
 }
 
-// ——— Form primitives ———————————————————————————————————————————————
-
 const inputClass =
   'block w-full border-b border-border-subtle bg-transparent py-2 text-base text-ink-strong placeholder:text-hairline transition-colors focus:border-accent focus:outline-none';
 
@@ -140,8 +138,6 @@ function AutosaveToggle({
   );
 }
 
-// ——— Form ——————————————————————————————————————————————————————————
-
 export function InvoiceForm() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [lastDownload, setLastDownload] = useState<string | null>(null);
@@ -203,8 +199,8 @@ export function InvoiceForm() {
       const filename = `invoice-${invoiceId}.pdf`;
       setLastDownload(filename);
       window.setTimeout(() => setLastDownload(null), 3000);
-    } catch (error) {
-      console.error('Error generating PDF:', error);
+    } catch (err) {
+      console.error(err);
     } finally {
       setIsGenerating(false);
     }
@@ -220,8 +216,8 @@ export function InvoiceForm() {
       const blob = await generateBlob(data, invoiceId);
       const url = URL.createObjectURL(blob);
       setPreviewUrl(url);
-    } catch (error) {
-      console.error('Error generating preview:', error);
+    } catch (err) {
+      console.error(err);
     } finally {
       setIsPreviewLoading(false);
     }
@@ -249,7 +245,6 @@ export function InvoiceForm() {
       </div>
 
       <form onSubmit={handleSubmit(onDownload)} noValidate>
-        {/* FROM ————————————————————————————————————————————————— */}
         <section>
           <SectionHeader>From</SectionHeader>
           <div className="grid gap-6 md:grid-cols-2">
@@ -302,7 +297,6 @@ export function InvoiceForm() {
           </div>
         </section>
 
-        {/* ITEMS ———————————————————————————————————————————————— */}
         <section>
           <SectionHeader>Items</SectionHeader>
 
@@ -431,7 +425,6 @@ export function InvoiceForm() {
           </div>
         </section>
 
-        {/* DETAILS ——————————————————————————————————————————————— */}
         <section>
           <SectionHeader>Details</SectionHeader>
 
@@ -456,7 +449,6 @@ export function InvoiceForm() {
           </div>
         </section>
 
-        {/* ACTION BAR ———————————————————————————————————————————— */}
         <section className="pt-16">
           <div className="flex flex-col items-stretch gap-6 sm:flex-row sm:items-center sm:justify-between">
             <button

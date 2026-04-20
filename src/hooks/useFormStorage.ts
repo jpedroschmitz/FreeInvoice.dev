@@ -31,17 +31,13 @@ function readStorage(): Stored | null {
 function writeStorage(value: Stored) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(value));
-  } catch {
-    // localStorage unavailable or quota exceeded
-  }
+  } catch {}
 }
 
 function clearStorage() {
   try {
     localStorage.removeItem(STORAGE_KEY);
-  } catch {
-    // ignore
-  }
+  } catch {}
 }
 
 export function useFormStorage({ watch, reset, getValues, defaultValues }: Args) {
@@ -69,12 +65,12 @@ export function useFormStorage({ watch, reset, getValues, defaultValues }: Args)
   }, [reset]);
 
   useEffect(() => {
-    const subscription = watch((values) => {
+    const subscription = watch(() => {
       if (!enabled) return;
       if (saveTimer.current) clearTimeout(saveTimer.current);
       setStatus('saving');
       saveTimer.current = setTimeout(() => {
-        writeStorage({ enabled: true, form: values as InvoiceFormValues });
+        writeStorage({ enabled: true, form: getValues() });
         setStatus('saved');
       }, SAVE_DEBOUNCE_MS);
     });
@@ -82,7 +78,7 @@ export function useFormStorage({ watch, reset, getValues, defaultValues }: Args)
       subscription.unsubscribe();
       if (saveTimer.current) clearTimeout(saveTimer.current);
     };
-  }, [watch, enabled]);
+  }, [watch, enabled, getValues]);
 
   useEffect(() => {
     return () => {
