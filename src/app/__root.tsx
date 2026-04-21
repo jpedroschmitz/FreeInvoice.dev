@@ -1,3 +1,4 @@
+import recursiveLatinFontUrl from '@fontsource-variable/recursive/files/recursive-latin-mono-normal.woff2?url';
 import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router';
 
 import { Header } from '@/components/header';
@@ -51,6 +52,13 @@ export const Route = createRootRoute({
       },
     ],
     links: [
+      {
+        rel: 'preload',
+        href: recursiveLatinFontUrl,
+        as: 'font',
+        type: 'font/woff2',
+        crossOrigin: 'anonymous',
+      },
       { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href: appCss },

@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import '@fontsource-variable/recursive/full.css';
+@import '@fontsource-variable/recursive/mono.css';
 
 :root {
   --font-recursive: 'Recursive Variable', 'Recursive', ui-sans-serif, system-ui, sans-serif;
