@@ -25,6 +25,8 @@
     ".pnpm-debug.log*",
     ".env*.local",
     ".vercel",
-    "*.tsbuildinfo"
+    ".output",
+    "*.tsbuildinfo",
+    "src/routeTree.gen.ts"
   ]
 }
