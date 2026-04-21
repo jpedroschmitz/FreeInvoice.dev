@@ -2,7 +2,6 @@ import recursiveLatinFontUrl from '@fontsource-variable/recursive/files/recursiv
 import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router';
 
 import { Header } from '@/components/header';
-import { isProd } from '@/lib/isProd';
 
 import appCss from './globals.css?url';
 
@@ -76,7 +75,7 @@ function RootLayout() {
       <body className="flex min-h-dvh flex-col">
         <Header />
         <Outlet />
-        {isProd && <script dangerouslySetInnerHTML={{ __html: posthogSnippet }} />}
+        {import.meta.env.PROD && <script dangerouslySetInnerHTML={{ __html: posthogSnippet }} />}
         <Scripts />
       </body>
     </html>
