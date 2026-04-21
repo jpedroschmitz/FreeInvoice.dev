@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>OG source — FreeInvoice.dev</title>
+    <!--
+      Design-time source for public/og-image.jpg.
+
+      Usage:
+        1. Open this file in Chrome.
+        2. Wait ~2 seconds for Recursive to finish loading.
+        3. Cmd/Ctrl + Shift + P → "Capture full size screenshot".
+        4. Resize/convert the captured PNG to a 1200×640 JPG and save as
+           public/og-image.jpg, overwriting the existing asset.
+
+      This file is not shipped — delete it (or .gitignore it) once happy.
+    -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/recursive@5/full.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 1200px;
+        height: 640px;
+        overflow: hidden;
+      }
+
+      body {
+        padding: 72px 80px;
+        background: oklch(99% 0.003 60);
+        color: oklch(22% 0.012 45);
+        font-family: 'Recursive Variable', ui-sans-serif, system-ui, sans-serif;
+        font-variation-settings:
+          'MONO' 0,
+          'CASL' 0,
+          'slnt' 0,
+          'CRSV' 0;
+        font-feature-settings: 'calt', 'kern';
+        -webkit-font-smoothing: antialiased;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .eyebrow {
+        font-variation-settings:
+          'MONO' 1,
+          'CASL' 0,
+          'slnt' 0,
+          'CRSV' 0;
+        font-size: 15px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: oklch(45% 0.01 50);
+      }
+
+      h1 {
+        margin-top: 48px;
+        font-variation-settings:
+          'MONO' 1,
+          'CASL' 0,
+          'slnt' 0,
+          'CRSV' 0;
+        font-size: 116px;
+        font-weight: 500;
+        line-height: 0.98;
+        letter-spacing: -0.02em;
+        color: oklch(14% 0.014 40);
+      }
+
+      h1 span {
+        display: block;
+      }
+
+      .sub {
+        margin-top: 32px;
+        font-size: 26px;
+        line-height: 1.4;
+        color: oklch(22% 0.012 45);
+        max-width: 780px;
+      }
+
+      .meta {
+        font-variation-settings:
+          'MONO' 1,
+          'CASL' 0,
+          'slnt' 0,
+          'CRSV' 0;
+        font-size: 15px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: oklch(45% 0.01 50);
+      }
+
+      .dim {
+        color: oklch(85% 0.008 60);
+      }
+
+      .accent {
+        color: oklch(50% 0.2 38);
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div class="eyebrow">freeinvoice.dev</div>
+      <h1>
+        <span>Invoices.</span>
+        <span>Nothing else.</span>
+      </h1>
+      <p class="sub">Free, client-side, PDF out. Your data never leaves this tab.</p>
+    </div>
+
+    <div class="meta">
+      <span class="dim">└─</span>
+      INV-0001 <span class="dim">·</span> 2026-04-20 <span class="dim">·</span> USD 1,200.00 <span class="dim">·</span>
+      <span class="accent">paid</span>
+    </div>
+  </body>
+</html>

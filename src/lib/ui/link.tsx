@@ -1,16 +1,19 @@
 import * as Headless from '@headlessui/react';
-import NextLink from 'next/link';
+import { createLink, type LinkComponent } from '@tanstack/react-router';
 import React, { forwardRef } from 'react';
 
-import type { LinkProps } from 'next/link';
+type AnchorProps = Omit<React.ComponentPropsWithoutRef<'a'>, 'href'>;
 
-export const Link = forwardRef(function Link(
-  props: LinkProps & React.ComponentPropsWithoutRef<'a'>,
-  ref: React.ForwardedRef<HTMLAnchorElement>
-) {
-  return (
-    <Headless.DataInteractive>
-      <NextLink {...props} ref={ref} />
-    </Headless.DataInteractive>
-  );
-});
+const TanstackLink = createLink(
+  forwardRef<HTMLAnchorElement, AnchorProps>(function TanstackLink(props, ref) {
+    return (
+      <Headless.DataInteractive>
+        <a {...props} ref={ref} />
+      </Headless.DataInteractive>
+    );
+  }),
+);
+
+export const Link: LinkComponent<typeof TanstackLink> = (props) => {
+  return <TanstackLink preload="intent" {...props} />;
+};

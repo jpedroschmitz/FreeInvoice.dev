@@ -1,9 +1,40 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@import '@fontsource-variable/recursive/mono.css';
+
+:root {
+  --font-recursive: 'Recursive Variable', 'Recursive', ui-sans-serif, system-ui, sans-serif;
+}
+
+@theme {
+  --color-paper: oklch(99% 0.003 60);
+  --color-paper-elev: oklch(97% 0.004 60);
+  --color-border-subtle: oklch(92% 0.006 60);
+  --color-hairline: oklch(85% 0.008 60);
+  --color-muted: oklch(45% 0.01 50);
+  --color-ink: oklch(22% 0.012 45);
+  --color-ink-strong: oklch(14% 0.014 40);
+  --color-accent: oklch(50% 0.2 38);
+  --color-accent-press: oklch(44% 0.2 38);
+
+  --font-sans: var(--font-recursive), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-recursive), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-display: var(--font-recursive), ui-sans-serif, system-ui, sans-serif;
+
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+  --text-display: clamp(2.25rem, min(7vw, 9vh), 5rem);
+  --text-display--line-height: 1;
+  --text-display--letter-spacing: -0.02em;
+
+  --tracking-display: -0.02em;
+  --tracking-wordmark: -0.01em;
+  --tracking-caps: 0.04em;
+}
 
 @layer base {
-  *, *:before, *:after {
+  *,
+  *:before,
+  *:after {
     box-sizing: inherit;
   }
 
@@ -11,15 +42,27 @@
     box-sizing: border-box;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
+    font-family: var(--font-recursive);
+    font-variation-settings:
+      'MONO' 0,
+      'CASL' 0,
+      'slnt' 0,
+      'CRSV' 0;
+    font-feature-settings: 'calt', 'kern';
+    font-kerning: normal;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    @apply antialiased font-sans;
-    font-feature-settings:
-      "rlig" 1,
-      "calt" 1;
+    @apply text-ink bg-paper text-base;
     word-wrap: break-word;
-    height: 100vh;
+  }
+
+  ::selection {
+    background-color: oklch(50% 0.2 38 / 0.18);
+    color: oklch(14% 0.014 40);
   }
 
   ::-webkit-scrollbar {
@@ -27,6 +70,59 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full border-x-2 border-y-2 border-solid border-transparent bg-gray-500 bg-clip-padding;
+    @apply bg-hairline rounded-full border-x-2 border-y-2 border-solid border-transparent bg-clip-padding;
+  }
+}
+
+@layer utilities {
+  .font-mono {
+    font-variation-settings:
+      'MONO' 1,
+      'CASL' 0,
+      'slnt' 0,
+      'CRSV' 0;
+  }
+
+  .font-sans {
+    font-variation-settings:
+      'MONO' 0,
+      'CASL' 0,
+      'slnt' 0,
+      'CRSV' 0;
+  }
+
+  .font-display {
+    font-variation-settings:
+      'MONO' 1,
+      'CASL' 0,
+      'slnt' 0,
+      'CRSV' 0;
+    letter-spacing: -0.02em;
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer base {
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

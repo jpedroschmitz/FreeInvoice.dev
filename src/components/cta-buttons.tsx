@@ -1,39 +1,33 @@
-'use client';
-
+import { ArrowRight, ArrowUpRight } from '@/lib/ui/icons';
 import { Link } from '@/lib/ui/link';
 
-export function CreateInvoiceNow() {
-  return (
-    <a
-      href="/app"
-      onClick={() => {
-        if (typeof window.posthog !== 'undefined') {
-          window.posthog.capture('Create_Invoice_Click');
-        }
-      }}
-      className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-    >
-      Create Invoice Now
-    </a>
-  );
+function captureEvent(name: string) {
+  if (typeof window !== 'undefined' && typeof window.posthog !== 'undefined') {
+    window.posthog.capture(name);
+  }
 }
 
-export function CTAButtons() {
+export function HeroCTAs() {
   return (
-    <>
-      <CreateInvoiceNow />
+    <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-7">
       <Link
-        href="/invoice-example.pdf"
-        onClick={() => {
-          if (typeof window.posthog !== 'undefined') {
-            window.posthog.capture('Sample_Invoice_Test');
-          }
-        }}
-        target="_blank"
-        className="text-sm font-semibold leading-6 text-gray-900"
+        to="/app"
+        onClick={() => captureEvent('Create_Invoice_Click')}
+        className="group bg-accent tracking-caps text-paper hover:bg-accent-press focus-visible:outline-accent inline-flex items-center gap-3 px-5 py-3.5 font-mono text-sm font-medium uppercase transition-[background-color,transform] duration-150 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 active:scale-[0.98]"
       >
-        View Sample Invoice <span aria-hidden="true">→</span>
+        Create invoice
+        <ArrowRight className="transition-transform duration-150 ease-out group-hover:translate-x-0.5" />
       </Link>
-    </>
+      <a
+        href="/invoice-example.pdf?v=2"
+        onClick={() => captureEvent('Sample_Invoice_Test')}
+        target="_blank"
+        rel="noreferrer"
+        className="text-2xs tracking-caps text-muted hover:text-ink-strong focus-visible:outline-accent -my-2 inline-flex items-center gap-1.5 py-2 font-mono uppercase transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+      >
+        See the output
+        <ArrowUpRight />
+      </a>
+    </div>
   );
 }

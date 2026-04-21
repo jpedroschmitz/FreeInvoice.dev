@@ -1,0 +1,32 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["import", "react", "typescript", "unicorn", "oxc"],
+  "categories": {
+    "correctness": "error"
+  },
+  "rules": {},
+  "env": {
+    "builtin": true
+  },
+  "ignorePatterns": [
+    "/node_modules",
+    "/.pnp",
+    ".pnp.js",
+    ".idea/",
+    "/coverage",
+    "/out/",
+    "/build",
+    ".DS_Store",
+    "*.pem",
+    "pnpm-lock.yaml",
+    "npm-debug.log*",
+    "yarn-debug.log*",
+    "yarn-error.log*",
+    ".pnpm-debug.log*",
+    ".env*.local",
+    ".vercel",
+    ".output",
+    "*.tsbuildinfo",
+    "src/routeTree.gen.ts"
+  ]
+}

@@ -1,56 +1,112 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { UseFormGetValues, UseFormReset, UseFormWatch } from 'react-hook-form';
 
-import { InvoiceFormValues } from '@/app/validation';
+import { InvoiceFormInput } from '@/lib/invoice-validation';
 
-const STORAGE_KEY = '@freeinvoice-form-data';
+const STORAGE_KEY = '@freeinvoice/draft';
+const SAVE_DEBOUNCE_MS = 500;
+const LOADED_INDICATOR_MS = 2000;
 
-export function useFormStorage(
-  getValues: () => InvoiceFormValues,
-  reset: (values?: Partial<InvoiceFormValues>) => void,
-  defaultValues: Partial<InvoiceFormValues>
-) {
-  const [hasSavedData, setHasSavedData] = useState(false);
+type Stored = { enabled: boolean; form?: InvoiceFormInput };
+
+export type AutosaveStatus = 'idle' | 'saving' | 'saved' | 'loaded';
+
+type Args = {
+  watch: UseFormWatch<InvoiceFormInput>;
+  reset: UseFormReset<InvoiceFormInput>;
+  getValues: UseFormGetValues<InvoiceFormInput>;
+  defaultValues: InvoiceFormInput;
+};
+
+function readStorage(): Stored | null {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    return JSON.parse(raw) as Stored;
+  } catch {
+    return null;
+  }
+}
+
+function writeStorage(value: Stored) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(value));
+  } catch {}
+}
+
+function clearStorage() {
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch {}
+}
+
+export function useFormStorage({ watch, reset, getValues, defaultValues }: Args) {
+  const [enabled, setEnabled] = useState(false);
+  const [status, setStatus] = useState<AutosaveStatus>('idle');
+  const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const loadedTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hydrated = useRef(false);
 
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      setHasSavedData(saved !== null);
-    } catch {
-      // localStorage unavailable
+    if (hydrated.current) return;
+    hydrated.current = true;
+
+    const stored = readStorage();
+    if (!stored?.enabled) return;
+
+    setEnabled(true);
+    if (stored.form) {
+      reset(stored.form);
+      setStatus('loaded');
+      loadedTimer.current = setTimeout(() => {
+        setStatus((current) => (current === 'loaded' ? 'saved' : current));
+      }, LOADED_INDICATOR_MS);
     }
+  }, [reset]);
+
+  useEffect(() => {
+    const subscription = watch(() => {
+      if (!enabled) return;
+      if (saveTimer.current) clearTimeout(saveTimer.current);
+      setStatus('saving');
+      saveTimer.current = setTimeout(() => {
+        writeStorage({ enabled: true, form: getValues() });
+        setStatus('saved');
+      }, SAVE_DEBOUNCE_MS);
+    });
+    return () => {
+      subscription.unsubscribe();
+      if (saveTimer.current) clearTimeout(saveTimer.current);
+    };
+  }, [watch, enabled, getValues]);
+
+  useEffect(() => {
+    return () => {
+      if (loadedTimer.current) clearTimeout(loadedTimer.current);
+    };
   }, []);
 
-  const handleSave = () => {
-    try {
-      const data = getValues();
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      setHasSavedData(true);
-    } catch {
-      // localStorage unavailable
-    }
-  };
-
-  const handleLoad = () => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved) as InvoiceFormValues;
-        reset(parsed);
+  const toggleEnabled = useCallback(
+    (next: boolean) => {
+      setEnabled(next);
+      if (next) {
+        writeStorage({ enabled: true, form: getValues() });
+        setStatus('saved');
+      } else {
+        clearStorage();
+        setStatus('idle');
       }
-    } catch {
-      // corrupted or unavailable
-    }
-  };
+    },
+    [getValues],
+  );
 
-  const handleClear = () => {
-    try {
-      localStorage.removeItem(STORAGE_KEY);
-      setHasSavedData(false);
-      reset(defaultValues);
-    } catch {
-      // localStorage unavailable
+  const clearForm = useCallback(() => {
+    reset(defaultValues);
+    if (enabled) {
+      writeStorage({ enabled: true, form: defaultValues });
+      setStatus('saved');
     }
-  };
+  }, [reset, defaultValues, enabled]);
 
-  return { hasSavedData, handleSave, handleLoad, handleClear };
+  return { enabled, setEnabled: toggleEnabled, status, clearForm };
 }
