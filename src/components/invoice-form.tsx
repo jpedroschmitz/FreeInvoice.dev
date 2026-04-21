@@ -87,9 +87,13 @@ function Label({ htmlFor, children, srOnlyMd }: { htmlFor?: string; children: Re
   );
 }
 
-function FieldError({ children }: { children?: React.ReactNode }) {
+function FieldError({ id, children }: { id?: string; children?: React.ReactNode }) {
   if (!children) return null;
-  return <p className="text-2xs tracking-caps text-accent mt-1 font-mono uppercase">{children}</p>;
+  return (
+    <p id={id} className="text-2xs tracking-caps text-accent mt-1 font-mono uppercase">
+      {children}
+    </p>
+  );
 }
 
 function SectionHeader({ children }: { children: React.ReactNode }) {
@@ -129,7 +133,7 @@ function AutosaveToggle({
         >
           {enabled && <span className="bg-accent absolute inset-[2px]" />}
         </span>
-        Autosave &amp; auto-load
+        Autosave
       </label>
       <div className="text-2xs tracking-caps text-muted font-mono uppercase">
         {statusLabel ?? 'Off · nothing leaves this tab'}
@@ -254,9 +258,11 @@ export function InvoiceForm() {
                 id="company_name"
                 className={inputClass}
                 placeholder="ABC Corporation Ltd."
+                aria-invalid={errors.company_name ? true : undefined}
+                aria-describedby={errors.company_name ? 'company_name-error' : undefined}
                 {...register('company_name')}
               />
-              <FieldError>{errors.company_name?.message}</FieldError>
+              <FieldError id="company_name-error">{errors.company_name?.message}</FieldError>
             </div>
             <div>
               <Label htmlFor="company_address">Company address</Label>
@@ -264,9 +270,11 @@ export function InvoiceForm() {
                 id="company_address"
                 className={inputClass}
                 placeholder="123 Main Street, City, Country"
+                aria-invalid={errors.company_address ? true : undefined}
+                aria-describedby={errors.company_address ? 'company_address-error' : undefined}
                 {...register('company_address')}
               />
-              <FieldError>{errors.company_address?.message}</FieldError>
+              <FieldError id="company_address-error">{errors.company_address?.message}</FieldError>
             </div>
           </div>
         </section>
@@ -276,8 +284,15 @@ export function InvoiceForm() {
           <div className="grid gap-6 md:grid-cols-2">
             <div>
               <Label htmlFor="bill_to">Client name</Label>
-              <input id="bill_to" className={inputClass} placeholder="John Doe" {...register('bill_to')} />
-              <FieldError>{errors.bill_to?.message}</FieldError>
+              <input
+                id="bill_to"
+                className={inputClass}
+                placeholder="John Doe"
+                aria-invalid={errors.bill_to ? true : undefined}
+                aria-describedby={errors.bill_to ? 'bill_to-error' : undefined}
+                {...register('bill_to')}
+              />
+              <FieldError id="bill_to-error">{errors.bill_to?.message}</FieldError>
             </div>
             <div>
               <Label htmlFor="bill_to_address">Client address</Label>
@@ -285,14 +300,23 @@ export function InvoiceForm() {
                 id="bill_to_address"
                 className={inputClass}
                 placeholder="456 Elm Street, City, Country"
+                aria-invalid={errors.bill_to_address ? true : undefined}
+                aria-describedby={errors.bill_to_address ? 'bill_to_address-error' : undefined}
                 {...register('bill_to_address')}
               />
-              <FieldError>{errors.bill_to_address?.message}</FieldError>
+              <FieldError id="bill_to_address-error">{errors.bill_to_address?.message}</FieldError>
             </div>
             <div>
               <Label htmlFor="vat_id">VAT ID (optional)</Label>
-              <input id="vat_id" className={inputClass} placeholder="e.g. DE123456789" {...register('vat_id')} />
-              <FieldError>{errors.vat_id?.message}</FieldError>
+              <input
+                id="vat_id"
+                className={inputClass}
+                placeholder="e.g. DE123456789"
+                aria-invalid={errors.vat_id ? true : undefined}
+                aria-describedby={errors.vat_id ? 'vat_id-error' : undefined}
+                {...register('vat_id')}
+              />
+              <FieldError id="vat_id-error">{errors.vat_id?.message}</FieldError>
             </div>
           </div>
         </section>
@@ -303,7 +327,13 @@ export function InvoiceForm() {
           <div className="mb-8 max-w-xs">
             <Label htmlFor="currency">Currency</Label>
             <div className="relative">
-              <select id="currency" className={inputClass + ' appearance-none pr-6'} {...register('currency')}>
+              <select
+                id="currency"
+                className={inputClass + ' appearance-none pr-6'}
+                aria-invalid={errors.currency ? true : undefined}
+                aria-describedby={errors.currency ? 'currency-error' : undefined}
+                {...register('currency')}
+              >
                 {CURRENCIES.map((c) => (
                   <option key={c.code} value={c.code}>
                     {c.code} — {c.name}
@@ -312,7 +342,7 @@ export function InvoiceForm() {
               </select>
               <Chevron />
             </div>
-            <FieldError>{errors.currency?.message}</FieldError>
+            <FieldError id="currency-error">{errors.currency?.message}</FieldError>
           </div>
 
           <div className="space-y-4">
@@ -340,9 +370,15 @@ export function InvoiceForm() {
                       id={`services.${index}.description`}
                       className={inputClass}
                       placeholder="Web design services"
+                      aria-invalid={errors.services?.[index]?.description ? true : undefined}
+                      aria-describedby={
+                        errors.services?.[index]?.description ? `services-${index}-description-error` : undefined
+                      }
                       {...register(`services.${index}.description`)}
                     />
-                    <FieldError>{errors.services?.[index]?.description?.message}</FieldError>
+                    <FieldError id={`services-${index}-description-error`}>
+                      {errors.services?.[index]?.description?.message}
+                    </FieldError>
                   </div>
                   <div>
                     <Label htmlFor={`services.${index}.quantity`} srOnlyMd>
@@ -351,12 +387,19 @@ export function InvoiceForm() {
                     <input
                       id={`services.${index}.quantity`}
                       type="number"
+                      onWheel={(e) => e.currentTarget.blur()}
                       min="0"
                       step="1"
                       className={inputClass + ' tabular-nums'}
+                      aria-invalid={errors.services?.[index]?.quantity ? true : undefined}
+                      aria-describedby={
+                        errors.services?.[index]?.quantity ? `services-${index}-quantity-error` : undefined
+                      }
                       {...register(`services.${index}.quantity`)}
                     />
-                    <FieldError>{errors.services?.[index]?.quantity?.message}</FieldError>
+                    <FieldError id={`services-${index}-quantity-error`}>
+                      {errors.services?.[index]?.quantity?.message}
+                    </FieldError>
                   </div>
                   <div>
                     <Label htmlFor={`services.${index}.amount`} srOnlyMd>
@@ -378,10 +421,16 @@ export function InvoiceForm() {
                           value={value}
                           onBlur={onBlur}
                           onValueChange={(val) => onChange(val ?? '')}
+                          aria-invalid={errors.services?.[index]?.amount ? true : undefined}
+                          aria-describedby={
+                            errors.services?.[index]?.amount ? `services-${index}-amount-error` : undefined
+                          }
                         />
                       )}
                     />
-                    <FieldError>{errors.services?.[index]?.amount?.message}</FieldError>
+                    <FieldError id={`services-${index}-amount-error`}>
+                      {errors.services?.[index]?.amount?.message}
+                    </FieldError>
                   </div>
                   <div className="flex items-baseline justify-between md:justify-end">
                     <span className="text-2xs tracking-caps text-muted font-mono uppercase md:sr-only">Subtotal</span>
@@ -406,7 +455,7 @@ export function InvoiceForm() {
             })}
           </div>
 
-          <div className="mt-6 flex items-center justify-between">
+          <div className="mt-6 flex">
             <button
               type="button"
               onClick={() => append({ description: '', quantity: '1', amount: '' })}
@@ -431,8 +480,15 @@ export function InvoiceForm() {
           <div className="mb-8 grid gap-6 md:grid-cols-2">
             <div>
               <Label htmlFor="due_date">Due date</Label>
-              <input id="due_date" type="date" className={inputClass + ' tabular-nums'} {...register('due_date')} />
-              <FieldError>{errors.due_date?.message}</FieldError>
+              <input
+                id="due_date"
+                type="date"
+                className={inputClass + ' tabular-nums'}
+                aria-invalid={errors.due_date ? true : undefined}
+                aria-describedby={errors.due_date ? 'due_date-error' : undefined}
+                {...register('due_date')}
+              />
+              <FieldError id="due_date-error">{errors.due_date?.message}</FieldError>
             </div>
           </div>
 
@@ -442,10 +498,12 @@ export function InvoiceForm() {
               id="notes"
               rows={6}
               placeholder="Bank details, payment terms, etc."
-              className="border-border-subtle text-ink-strong placeholder:text-hairline focus:border-accent mt-2 block w-full border bg-transparent p-3 text-base transition-colors focus:ring-0 focus:outline-none"
+              className="border-border-subtle text-ink-strong placeholder:text-hairline focus:border-accent mt-2 block w-full border bg-transparent p-3 text-base transition-colors focus:outline-none"
+              aria-invalid={errors.notes ? true : undefined}
+              aria-describedby={errors.notes ? 'notes-error' : undefined}
               {...register('notes')}
             />
-            <FieldError>{errors.notes?.message}</FieldError>
+            <FieldError id="notes-error">{errors.notes?.message}</FieldError>
           </div>
         </section>
 
@@ -464,7 +522,7 @@ export function InvoiceForm() {
                 type="button"
                 onClick={handleSubmit(onPreview)}
                 disabled={isGenerating || isPreviewLoading}
-                className="tracking-caps text-muted hover:text-ink-strong focus-visible:outline-accent -my-2 inline-flex items-center justify-center gap-2 py-2 font-mono text-xs uppercase transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 disabled:pointer-events-none disabled:opacity-50"
+                className="tracking-caps text-muted hover:text-ink-strong focus-visible:outline-accent -my-2 inline-flex items-center justify-center py-2 font-mono text-xs uppercase transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 disabled:pointer-events-none disabled:opacity-50"
               >
                 Preview
               </button>

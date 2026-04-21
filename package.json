@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@ag-media/react-pdf-table": "2.0.3",
+    "@base-ui/react": "1.4.1",
     "@fontsource-variable/recursive": "5.2.8",
     "@headlessui/react": "2.2.10",
     "@heroicons/react": "2.2.0",
