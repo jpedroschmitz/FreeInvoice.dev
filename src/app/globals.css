@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @import '@fontsource-variable/recursive/mono.css';
 
 :root {
@@ -10,11 +10,11 @@
   --color-paper-elev: oklch(97% 0.004 60);
   --color-border-subtle: oklch(92% 0.006 60);
   --color-hairline: oklch(85% 0.008 60);
-  --color-muted: oklch(45% 0.010 50);
+  --color-muted: oklch(45% 0.01 50);
   --color-ink: oklch(22% 0.012 45);
   --color-ink-strong: oklch(14% 0.014 40);
-  --color-accent: oklch(50% 0.200 38);
-  --color-accent-press: oklch(44% 0.200 38);
+  --color-accent: oklch(50% 0.2 38);
+  --color-accent-press: oklch(44% 0.2 38);
 
   --font-sans: var(--font-recursive), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-recursive), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
