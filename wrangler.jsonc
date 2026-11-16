@@ -1,0 +1,14 @@
+{
+  // Nitro merges this with its generated config at build time (see vite.config.ts).
+  "name": "freeinvoice-dev",
+  "compatibility_date": "2026-11-12",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  // Workers Builds runs `wrangler preview` for non-main branches.
+  "preview_urls": true,
+  "previews": {},
+  "routes": [{ "pattern": "freeinvoice.dev", "custom_domain": true }],
+  "observability": {
+    "enabled": true,
+  },
+}

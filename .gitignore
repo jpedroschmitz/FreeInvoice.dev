@@ -44,3 +44,6 @@ node_modules/
 /playwright/.cache/
 
 .output/
+
+# cloudflare
+.wrangler/
