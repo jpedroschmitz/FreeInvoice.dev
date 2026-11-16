@@ -21,6 +21,12 @@ export default defineConfig({
       },
     }),
     viteReact(),
-    nitro(),
+    nitro({
+      preset: 'cloudflare_module',
+      cloudflare: {
+        deployConfig: true,
+        nodeCompat: true,
+      },
+    }),
   ],
 });
